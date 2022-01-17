@@ -1,0 +1,17 @@
+
+<div class="card" th:fragment="post(text)" xmlns:th="http://www.w3.org/1999/xhtml">
+        <div th:text="${text}" class="card-body">
+            This is some text within a card body.
+        </div>
+</div>
+
+
+<div th:fragment="posts(posts)"
+     th:each="post:${posts}"
+
+     xmlns:th="http://www.w3.org/1999/xhtml">
+     <div th:replace="fragments/post :: post(${post})">
+
+     </div>
+
+</div>

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping
 class HomeController {
 
 
-    //List of strings added
+//    //List of strings added
 //    @GetMapping("home")
 //    fun Home(model : Model) : String {
 //        model.addAttribute("postList", listOf("Hej", "på", "dig"))
@@ -18,5 +18,10 @@ class HomeController {
     @GetMapping("home")
     fun Home() : String {
         return "home"
+    }
+
+    @GetMapping("timeline")
+    fun Timeline() : String {
+        return "timeline"
     }
 }

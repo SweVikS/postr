@@ -8,12 +8,12 @@ class UserController {
 
     @GetMapping("/signin")
     fun SignIn() : String {
-        return "signIn"
+        return "signin"
     }
 
 
     @GetMapping("/signup")
     fun SignUp() : String {
-        return "signUp"
+        return "signup"
     }
 }

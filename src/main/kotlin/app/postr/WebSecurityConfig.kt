@@ -18,7 +18,7 @@ public class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     @Override
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-            ?.antMatchers("/", "/home", "signup")?.permitAll()
+            ?.antMatchers("/", "/home", "/signup")?.permitAll()
             ?.anyRequest()?.authenticated()
             ?.and()
             ?.formLogin()
@@ -32,8 +32,8 @@ public class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     @Bean
     override fun userDetailsService(): UserDetailsService? {
         val user: UserDetails = User.withDefaultPasswordEncoder()
-            .username("user")
-            .password("password")
+            .username("viktor")
+            .password("1234")
             .roles("USER")
             .build()
         return InMemoryUserDetailsManager(user)

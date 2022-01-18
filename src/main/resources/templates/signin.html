@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
       layout:decorate="~{main}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+</head>
 
 <div layout:fragment="pageContent">
 
-    <h1>Sign In</h1>
+    <h1>Sign In Page</h1>
     <div th:if="${param.error}">
         Invalid username and password.
     </div>

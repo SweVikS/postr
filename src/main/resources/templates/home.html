@@ -3,10 +3,17 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+</head>
 
 <div layout:fragment="pageContent">
 
-    <h1>Hello World!!</h1>
+    <h1>Landing page</h1>
     <div th:replace="fragments/post :: posts(${postList})"></div>
 </div>
 

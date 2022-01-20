@@ -1,11 +1,17 @@
 package app.postr.controllers
 
+import app.postr.services.SignupDTO
+import app.postr.services.UserService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PostMapping
 
 @Controller
-class AuthenticationController {
+
+class AuthenticationController(@Autowired
+val userService: UserService) {
 
     @GetMapping("signin")
     fun Signin() : String {
@@ -18,7 +24,19 @@ class AuthenticationController {
     }
 
     @GetMapping("signup")
-    fun Signup() : String {
+    fun signup() : String {
         return "signup"
     }
+    @PostMapping("signup")
+    fun signupPost(
+        @ModelAttribute
+        signupDTO: SignupDTO) : String {
+
+
+        userService.saveNewUser(signupDTO)
+        return "redirect:/timeline"
+    }
 }
+
+
+

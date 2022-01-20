@@ -8,6 +8,11 @@
 <div layout:fragment="pageContent">
 
     <h1>Sign Up Page</h1>
+<form method="post" th:action="@{/signup}">
+    <input name="username"/>
+    <input name="password"/>
+    <input type="submit"/>
+</form>
 
 </div>
 

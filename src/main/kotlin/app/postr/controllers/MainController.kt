@@ -2,6 +2,7 @@ package app.postr.controllers
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import java.security.Principal
 
 @Controller
 class MainController {
@@ -20,7 +21,8 @@ class MainController {
     }
 
     @GetMapping("timeline")
-    fun Timeline() : String {
+    fun Timeline(principal : Principal) : String {
+        println(principal.name)
         return "timeline"
     }
 }

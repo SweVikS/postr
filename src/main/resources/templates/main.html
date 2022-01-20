@@ -11,10 +11,9 @@
     <title>Title</title>
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
         <script th:src="@{/js/bootstrap.min.js}"></script>
-
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="home">
             <img src="../img/6f4a6371837d4cc59fd9292ce3e7c0be.png" alt="logo" title="Postr brand" width="40" height="40">
@@ -30,7 +29,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <h1 th:inline="text">User: [[${#httpServletRequest.remoteUser}]]</h1>
+            <p class="text-warning" th:inline="text">User: [[${#httpServletRequest.remoteUser}]]</p>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link btn btn-secondary" href="signin">Sign in</a>

@@ -18,15 +18,24 @@ public class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     @Override
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-            ?.antMatchers("/", "/home", "/signup")?.permitAll()
-            ?.anyRequest()?.authenticated()
-            ?.and()
-            ?.formLogin()
-            ?.loginPage("/signin")
-            ?.permitAll()
-            ?.and()
-            ?.logout()
-            ?.permitAll()
+            .antMatchers(
+                "/",
+                "/home",
+                "/signup",
+                "/css/**",
+                "/js/**",
+                "/img/**",
+            ).permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/signin")
+            .failureUrl("/signin-failure")
+            .permitAll()
+            .and()
+            .logout()
+            .permitAll()
+            .logoutSuccessUrl("/home");
     }
 
     @Bean

@@ -1,11 +1,11 @@
 package app.postr.controllers
 
 import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import java.security.Principal
 
 @Controller
-class HomeController {
+class MainController {
 
 
     //List of strings added
@@ -18,5 +18,22 @@ class HomeController {
     @GetMapping("home")
     fun Home() : String {
         return "home"
+    }
+
+    @GetMapping("")
+    fun FallbackRedirect() : String {
+        return "home"
+    }
+
+    @GetMapping("timeline")
+    fun Timeline(principal : Principal) : String {
+        println(principal.name)
+        return "timeline"
+    }
+
+    @GetMapping("profile")
+    fun Profile(principal : Principal) : String {
+
+        return "profile"
     }
 }

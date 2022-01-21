@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-        <script th:src="@{/js/bootstrap.min.js}"></script>
-
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="home">
-            <img src="../img/6f4a6371837d4cc59fd9292ce3e7c0be.png" alt="logo" title="Postr brand" width="40" height="40">
+            <img src="../img/6f4a6371837d4cc59fd9292ce3e7c0be.png" alt="logo" title="Postr brand" width="40"
+                 height="40">
         </a>
         <button class="navbar-toggler"
                 type="button"
@@ -23,16 +26,28 @@
                 aria-controls="navbarNav"
                 aria-expanded="false"
                 aria-label="Toggle navigation"
-                aria-current="true" >
+                aria-current="true">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <p class="text-warning" th:inline="text">User: [[${#httpServletRequest.remoteUser}]]</p>
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li th:unless="${#httpServletRequest.remoteUser}" class="nav-item">
                     <a class="nav-link btn btn-secondary" href="signin">Sign in</a>
                 </li>
-                <li class="nav-item">
+                <li th:unless="${#httpServletRequest.remoteUser}" class="nav-item">
                     <a class="nav-link btn btn-secondary" href="signup">Sign up</a>
+                </li>
+                <li th:if="${#httpServletRequest.remoteUser}" class="nav-item">
+                    <a class="nav-link btn btn-secondary" href="timeline">Timeline</a>
+                </li>
+                <li th:if="${#httpServletRequest.remoteUser}" class="nav-item">
+                    <a class="nav-link btn btn-secondary" href="profile">Profile</a>
+                </li>
+                <li th:if="${#httpServletRequest.remoteUser}" class="nav-item">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="Sign Out"/>
+                    </form>
                 </li>
             </ul>
         </div>

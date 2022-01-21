@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
 
 <div layout:fragment="pageContent">
 
-    <h1>Hello World!!</h1>
+    <h1>Landing page</h1>
     <div th:replace="fragments/post :: posts(${postList})"></div>
 </div>
-
 </html>

@@ -20,9 +20,20 @@ class MainController {
         return "home"
     }
 
+    @GetMapping("")
+    fun FallbackRedirect() : String {
+        return "home"
+    }
+
     @GetMapping("timeline")
     fun Timeline(principal : Principal) : String {
         println(principal.name)
         return "timeline"
+    }
+
+    @GetMapping("profile")
+    fun Profile(principal : Principal) : String {
+
+        return "profile"
     }
 }

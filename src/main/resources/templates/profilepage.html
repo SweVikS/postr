@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+<div layout:fragment="pageContent">
+
+    <h1>Profile page for <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></h1>
+    <br>
+    <br>
+    <h3>Edit Description</h3>
+    <form action="#" th:action="@{/profile/post}" th:object="${profile}" method="post">
+        <input type="text" field="*{description}" name="description">
+        <p><input type="submit" value="Save" /></p>
+    </form>
+
+    <h2>Description</h2>
+    <p type="text" th:text="${description}"></p>
+
+
+</div>
+
+</html>

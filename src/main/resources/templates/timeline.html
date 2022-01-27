@@ -8,8 +8,12 @@
 
     <h1>Timeline Page</h1>
     <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
+    <br>
+    <h3>Create Post</h3>
+    <form action="#" th:action="@{/timeline/post}" th:object="${post}" method="post">
+        <input type="text" field="*{heading}" name="heading">
+        <input type="text" field="*{body}" name="body">
+        <p><input type="submit" value="Save" /></p>
     </form>
 </div>
 

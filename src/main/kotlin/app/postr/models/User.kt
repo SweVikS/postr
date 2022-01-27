@@ -2,6 +2,7 @@ package app.postr.models
 
 import org.springframework.data.repository.CrudRepository
 import javax.persistence.*
+import javax.persistence.CascadeType.*
 
 
 @Entity
@@ -12,11 +13,13 @@ class MyUser(
     @Column(nullable = false, unique = true)
     val username: String? = null,
     val password: String? = null,
-    @OneToOne val profile: Profile?=null
+    @OneToOne(cascade = [(ALL)]) var profile: Profile,
+    @OneToMany(cascade = [ALL], fetch = FetchType.EAGER, mappedBy = "user")
+    var posts: MutableList<Post>
 )
 
 //hibernate
 interface UserRepo : CrudRepository<MyUser, Long> {
-    fun findByUsername(username: String) : MyUser?
+    fun findByUsername(username: String): MyUser
 
 }

@@ -1,6 +1,7 @@
 package app.postr
 
 import app.postr.models.MyUser
+import app.postr.models.Profile
 import app.postr.models.UserRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -64,11 +65,12 @@ class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userRepository.findByUsername(username)
             ?: throw UsernameNotFoundException(username)
-        return MyUserPrincipal(user)
+        return MyUserDetails(user)
     }
 }
 
-class MyUserPrincipal( val user: MyUser) : UserDetails {
+//user credentials object
+class MyUserDetails( val user: MyUser) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return HashSet()
@@ -96,5 +98,13 @@ class MyUserPrincipal( val user: MyUser) : UserDetails {
 
     override fun isEnabled(): Boolean {
         return true
+    }
+
+    fun setProfileDescription(description : String) {
+        user.profile?.description = description
+    }
+
+    fun getProfileDescription() : String? {
+        return user.profile?.description
     }
 }

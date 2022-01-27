@@ -42,7 +42,7 @@
                     <a class="nav-link btn btn-secondary" href="timeline">Timeline</a>
                 </li>
                 <li th:if="${#httpServletRequest.remoteUser}" class="nav-item">
-                    <a class="nav-link btn btn-secondary" href="profile">Profile</a>
+                    <a class="nav-link btn btn-secondary" href="profilepage">Profile</a>
                 </li>
                 <li th:if="${#httpServletRequest.remoteUser}" class="nav-item">
                     <form th:action="@{/logout}" method="post">

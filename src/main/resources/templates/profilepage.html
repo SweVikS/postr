@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+<div layout:fragment="pageContent">
+
+    <h1>Profile page</h1>
+    <form action="#" th:action="@{/profile/post}" th:object="${profile}" method="post">
+        <input type="text" field="*{description}" name="description">
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+    <p type="text" th:text="${description}"></p>
+
+
+</div>
+
+</html>

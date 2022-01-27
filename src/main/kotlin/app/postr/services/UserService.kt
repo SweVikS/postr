@@ -1,6 +1,7 @@
 package app.postr.services
 
 import app.postr.models.MyUser
+import app.postr.models.Post
 import app.postr.models.Profile
 import app.postr.models.UserRepo
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,7 +22,12 @@ class UserService(
 
 
         val newProfile = Profile(description = "")
-        val newUser = MyUser(username = signupDTO.username, password = encryptedPassword, profile = newProfile)
+
+        val newUser = MyUser(username = signupDTO.username,
+            password = encryptedPassword,
+            profile = newProfile,
+            posts = emptyList<Post>() as MutableList<Post>
+        )
         userRepo.save(newUser)
     }
 

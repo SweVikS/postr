@@ -13,7 +13,9 @@ class MyUser(
     @Column(nullable = false, unique = true)
     val username: String? = null,
     val password: String? = null,
-    @OneToOne(cascade = [(CascadeType.ALL)]) var profile: Profile
+    @OneToOne(cascade = [(ALL)]) var profile: Profile,
+    @OneToMany(cascade = [ALL], fetch = FetchType.EAGER, mappedBy = "user")
+    var posts: MutableList<Post>
 )
 
 //hibernate

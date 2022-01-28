@@ -26,7 +26,7 @@ class UserService(
         val newUser = MyUser(username = signupDTO.username,
             password = encryptedPassword,
             profile = newProfile,
-            posts = emptyList<Post>() as MutableList<Post>
+            posts = mutableListOf()
         )
         userRepo.save(newUser)
     }

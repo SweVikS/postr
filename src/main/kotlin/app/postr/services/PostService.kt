@@ -20,11 +20,15 @@ class PostService(
 
         val user = userService.getUserByName(username)
         val newPost = Post(heading = postDTO.heading, body = postDTO.body, user = user)
-        user.posts.add(newPost)
+        user.posts?.add(newPost)
 
         postRepo.save(newPost)
         userRepo.save(user)
 
+    }
+
+    fun findAll(): MutableIterable<Post> {
+       return postRepo.findAll()
     }
 }
 

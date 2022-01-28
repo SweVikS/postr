@@ -20,32 +20,32 @@ class MainController(@Autowired val userService: UserService) {
 //    }
 
     @GetMapping("home")
-    fun Home() : String {
+    fun Home(): String {
         return "home"
     }
 
     @GetMapping("")
-    fun FallbackRedirect() : String {
+    fun FallbackRedirect(): String {
         return "home"
     }
 
     @GetMapping("timeline")
-    fun Timeline(principal : Principal) : String {
+    fun Timeline(principal: Principal): String {
         println(principal.name)
         return "timeline"
     }
 
     @GetMapping("profilepage")
-    fun ProfilePage(model: Model, principal: Principal) : String {
-        val user=userService.getUserByName(principal.name)
-model.addAttribute("description", user.profile.description )
+    fun ProfilePage(model: Model, principal: Principal): String {
+        val user = userService.getUserByName(principal.name)
+        model.addAttribute("description", user.profile.description)
         return "profilepage"
     }
 
     @GetMapping("profilepage/{username}")
-    fun ProfilePageSpec(model: Model, @PathVariable("username") username : String) : String {
-        val user=userService.getUserByName(username)
-        model.addAttribute("description", user.profile.description )
+    fun ProfilePageSpec(model: Model, @PathVariable("username") username: String): String {
+        val user = userService.getUserByName(username)
+        model.addAttribute("description", user.profile.description)
         return "profilepage"
     }
 }

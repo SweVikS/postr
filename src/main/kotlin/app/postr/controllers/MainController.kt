@@ -1,5 +1,6 @@
 package app.postr.controllers
 
+import app.postr.services.PostService
 import app.postr.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -9,15 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable
 import java.security.Principal
 
 @Controller
-class MainController(@Autowired val userService: UserService) {
-
-
-    //List of strings added
-//    @GetMapping("home")
-//    fun Home(model : Model) : String {
-//        model.addAttribute("postList", listOf("Hej", "på", "dig"))
-//        return "home"
-//    }
+class MainController(
+    @Autowired val userService: UserService,
+    @Autowired val postService: PostService
+) {
 
     @GetMapping("home")
     fun Home(): String {
@@ -30,10 +26,16 @@ class MainController(@Autowired val userService: UserService) {
     }
 
     @GetMapping("timeline")
-    fun Timeline(principal: Principal): String {
-        println(principal.name)
+    fun Timeline(model: Model): String {
+        model.addAttribute("postList", postService.findAll())
         return "timeline"
     }
+
+//    @GetMapping("home")
+//    fun Home(model: Model): String {
+//        model.addAttribute("postList", listOf("Hej", "på", "dig"))
+//        return "home"
+//    }
 
     @GetMapping("profilepage")
     fun ProfilePage(model: Model, principal: Principal): String {

@@ -21,12 +21,12 @@ class PostController(
         postDTO: postDTO, principal: Principal
     ): String {
         postService.savePost(postDTO,principal.name)
-        return "redirect:/profilepage"
+        return "redirect:/timeline"
     }
 
-    @GetMapping("timeline/all")
-    fun allPosts(model: Model): String? {
-        model.addAttribute("posts", postService.findAll())
-        return "timeline"
-    }
+//    @GetMapping("timeline/all")
+//    fun allPosts(model: Model): String? {
+//        model.addAttribute("posts", postService.findAll())
+//        return "timeline"
+//    }
 }

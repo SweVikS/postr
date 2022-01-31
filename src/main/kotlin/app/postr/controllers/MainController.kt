@@ -16,31 +16,30 @@ class MainController(
 ) {
 
     @GetMapping("home")
-    fun Home(): String {
+    fun Home(titleModel : Model): String {
+        titleModel.addAttribute("pagetitle","Postr - Home")
         return "home"
     }
 
     @GetMapping("")
-    fun FallbackRedirect(): String {
+    fun FallbackRedirect(titleModel: Model): String {
+        titleModel.addAttribute("pagetitle","Postr - Home")
         return "home"
     }
 
     @GetMapping("timeline")
-    fun Timeline(model: Model): String {
-        model.addAttribute("postList", postService.findAll())
+    fun Timeline(postModel: Model, titleModel: Model): String {
+        postModel.addAttribute("postList", postService.findAll())
+        titleModel.addAttribute("pagetitle","Postr - Timeline")
         return "timeline"
     }
 
-//    @GetMapping("home")
-//    fun Home(model: Model): String {
-//        model.addAttribute("postList", listOf("Hej", "på", "dig"))
-//        return "home"
-//    }
 
     @GetMapping("profilepage")
-    fun ProfilePage(model: Model, principal: Principal): String {
+    fun ProfilePage(model: Model, principal: Principal, titleModel: Model): String {
         val user = userService.getUserByName(principal.name)
         model.addAttribute("description", user.profile.description)
+        titleModel.addAttribute("pagetitle","Postr - Profile")
         return "profilepage"
     }
 

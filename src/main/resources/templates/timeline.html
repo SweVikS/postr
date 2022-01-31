@@ -4,6 +4,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
 
+<head th:include="/fragments/head :: head">
+</head>
+
 <div layout:fragment="pageContent">
 
     <h1>Timeline Page</h1>
@@ -19,20 +22,6 @@
 
 
     <div th:replace="fragments/post :: posts(${postList})"></div>
-<!--    <table action="#" th:action="@{/timeline/all}" th:object="${posts}" method="get">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th> Heading </th>-->
-<!--            <th> Body </th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="post : ${posts}">-->
-<!--            <td><span th:text="${post.heading}"> Heading </span></td>-->
-<!--            <td><span th:text="${post.body}"> Body </span></td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
 </div>
 
 </html>

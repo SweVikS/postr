@@ -3,6 +3,7 @@ import app.postr.services.SignupDTO
 import app.postr.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 
@@ -14,17 +15,20 @@ class AuthenticationController(
 ) {
 
     @GetMapping("signin")
-    fun Signin(): String {
+    fun Signin(titleModel : Model): String {
+        titleModel.addAttribute("pagetitle","Postr - Sign in")
         return "signin"
     }
 
     @GetMapping("signin-failure")
-    fun SigninFailure(): String {
+    fun SigninFailure(titleModel : Model): String {
+        titleModel.addAttribute("pagetitle","Postr - Sign in failure")
         return "signin-failure"
     }
 
     @GetMapping("signup")
-    fun signup(): String {
+    fun signup(titleModel: Model): String {
+        titleModel.addAttribute("pagetitle","Postr - Sign up")
         return "signup"
     }
 

@@ -4,8 +4,10 @@ import org.springframework.data.repository.CrudRepository
 import javax.persistence.*
 import javax.persistence.CascadeType.*
 
+/**
+ * Entity class for User object.
+ */
 
-@Entity
 class MyUser(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,8 +20,9 @@ class MyUser(
     var posts: MutableList<Post>
 )
 
-//hibernate
+/**
+ * Interface for generic CRUD functions on User object. Extends Spring Data CrudRepository interface.
+ */
 interface UserRepo : CrudRepository<MyUser, Long> {
     fun findByUsername(username: String): MyUser
-
 }

@@ -48,5 +48,6 @@ class MainController(
         val user = userService.getUserByName(username)
         model.addAttribute("description", user.profile.description)
         return "profilepage"
+        
     }
 }

@@ -8,13 +8,27 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
 
+/**
+ * Handles User object creation and saves the entity in database. UserRepo is autowired into the class
+ * for persisting data in database.
+ */
 @Service
 class UserService(
     @Autowired
     val userRepo: UserRepo
 ) {
+
+    /**
+     * Encrypts password to be saved in database.
+     */
     private val bCryptEncoder = BCryptPasswordEncoder()
 
+    /**
+     * Receives signupDTO from Controller function. Encrypts password with bCryptEncoder.
+     * Creates a new User object and populates it with credentials from DTO, along with an empty
+     * Profile object and a mutable List of Post objects. Sends User object to UserRepo which
+     * saves User object in database.
+     */
     fun saveNewUser(signupDTO: SignupDTO) {
 
         val encryptedPassword = bCryptEncoder.encode(signupDTO.password)
@@ -36,15 +50,15 @@ class UserService(
 
     }
 
-//    fun getUserFromPrincipal(principal: MyUserPrincipal): Optional<MyUser>? {
-//
-//        return principal.user?.id?.let { userRepo.findById(it) }
-//    }
-
-
+    /**
+     * Retrieves User object from database with UserRepo.
+     */
     fun getUserByName(username: String): MyUser {
         return userRepo.findByUsername(username)
     }
 }
 
+/**
+ *Data Transfer Object used for sending registration credentials to UserService
+ */
 class SignupDTO(val username: String, val password: String)

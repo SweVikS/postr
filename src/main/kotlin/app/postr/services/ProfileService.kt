@@ -18,9 +18,6 @@ class ProfileService(
         user.profile.description=profileDTO.description
 
         profileRepo.save(user.profile)
-
     }
-
 }
-
 class profileDTO(val description: String)

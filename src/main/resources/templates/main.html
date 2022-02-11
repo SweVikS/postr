@@ -5,15 +5,9 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body class="d-flex flex-column min-vh-100">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<!--    HTML Code for Navigation Bar-->
     <div class="container-fluid">
         <a class="navbar-brand" href="home">
             <img src="../img/6f4a6371837d4cc59fd9292ce3e7c0be.png" alt="logo" title="Postr brand" width="40"
@@ -30,29 +24,65 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <p class="text-warning" th:inline="text">User: [[${#httpServletRequest.remoteUser}]]</p>
-            <ul class="navbar-nav">
-                <li th:unless="${#httpServletRequest.remoteUser}" class="nav-item">
-                    <a class="nav-link btn btn-secondary" href="signin">Sign in</a>
+            <ul class="navbar-nav ms-auto mx-2">
+
+                <li th:unless="${#httpServletRequest.remoteUser}"
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/signin' ? 'active':''}"
+                    class="nav-item px-1">
+                    <a class="nav-link" href="signin">Sign in</a>
                 </li>
-                <li th:unless="${#httpServletRequest.remoteUser}" class="nav-item">
-                    <a class="nav-link btn btn-secondary" href="signup">Sign up</a>
+
+                <li th:unless="${#httpServletRequest.remoteUser}"
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/signup' ? 'active':''}"
+                    class="nav-item px-1">
+                    <a class="nav-link" href="signup">Sign up</a>
                 </li>
-                <li th:if="${#httpServletRequest.remoteUser}" class="nav-item">
-                    <a class="nav-link btn btn-secondary" href="timeline">Timeline</a>
+
+                <li th:if="${#httpServletRequest.remoteUser}"
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/timeline' ? 'active':''}"
+                    class="nav-item px-1">
+                    <a class="nav-link" href="timeline">Timeline</a>
                 </li>
-                <li th:if="${#httpServletRequest.remoteUser}" class="nav-item">
-                    <a class="nav-link btn btn-secondary" href="profilepage">Profile</a>
+
+                <li th:if="${#httpServletRequest.remoteUser}"
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/profilepage' ? 'active':''}"
+                    class="nav-item px-1">
+                    <a class="nav-link" href="profilepage">Profile</a>
                 </li>
-                <li th:if="${#httpServletRequest.remoteUser}" class="nav-item">
+
+                <li th:if="${#httpServletRequest.remoteUser}" class="nav-item px-1">
                     <form th:action="@{/logout}" method="post">
-                        <input type="submit" value="Sign Out"/>
+                        <input class="nav-link" type="submit" value="Sign Out"/>
                     </form>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<div layout:fragment="pageContent"></div>
+<div class="m-5 p-5" layout:fragment="pageContent"></div>
+<footer class="bg-dark text-center text-white mt-auto">
+    <div class="container p-1 pb-0">
+        <section>
+            <a class="btn btn-outline-light btn-floating m-1"
+               href="https://linkedin.com/in/viktor-salmberg/"
+               target="_blank"
+               rel="noopener noreferrer"
+               role="button"><i class="bi bi-linkedin"></i></a>
+
+            <a class="btn btn-outline-light btn-floating m-1"
+               href="https://github.com/Norrlandsk"
+               target="_blank"
+               rel="noopener noreferrer"
+               role="button"
+            ><i class="bi bi-github"></i></a>
+        </section>
+    </div>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2022 Copyright:
+        <a class="text-white" href="/home">Salmberg Solutions</a>
+    </div>
+
 </body>
 </html>
+
+

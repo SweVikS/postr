@@ -5,14 +5,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
 
-<div layout:fragment="pageContent">
+<head th:include="/fragments/head :: head">
+</head>
 
-    <h1>Sign Up Page</h1>
-<form method="post" th:action="@{/signup}">
-    <input name="username"/>
-    <input name="password"/>
-    <input type="submit"/>
-</form>
+<div layout:fragment="pageContent">
+    <div th:replace="fragments/signupform :: signupform"></div>
+<!--    <h1>Sign Up Page</h1>-->
+<!--<form method="post" th:action="@{/signup}">-->
+<!--    <input name="username"/>-->
+<!--    <input name="password"/>-->
+<!--    <input type="submit" class="btn btn-secondary"/>-->
+<!--</form>-->
 
 </div>
 

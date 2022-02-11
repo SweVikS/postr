@@ -3,25 +3,13 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-
       layout:decorate="~{main}">
 
+<head th:include="/fragments/head :: head">
+</head>
 
 <div layout:fragment="pageContent">
-
-    <h1>Sign In Page</h1>
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-    <form th:action="@{/signin}" method="post">
-        <div><label> User Name : <input type="text" name="username"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label></div>
-        <div><input type="submit" value="Sign In"/></div>
-    </form>
-
+    <div th:replace="fragments/loginform :: loginform"></div>
 </div>
-
+</div>
 </html>

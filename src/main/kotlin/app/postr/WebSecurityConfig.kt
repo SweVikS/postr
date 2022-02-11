@@ -24,6 +24,9 @@ import org.springframework.stereotype.Service
 @EnableWebSecurity
 public class WebSecurityConfig(@Autowired val userRepo : UserRepo) : WebSecurityConfigurerAdapter() {
 
+/**
+ * Intercepts all requests and redirects according to authentication status.
+ */
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
             .antMatchers(
@@ -47,21 +50,32 @@ public class WebSecurityConfig(@Autowired val userRepo : UserRepo) : WebSecurity
             .logoutSuccessUrl("/home");
     }
 
+    /**
+     * Configuration Bean used by configure function to access the UserRepo.
+     */
     @Bean
     override fun userDetailsService(): UserDetailsService? {
-
         return MyUserDetailsService(userRepo)
     }
 
     @Bean
-    fun passWordEncoder() : PasswordEncoder{
+    fun passWordEncoder(): PasswordEncoder{
         return BCryptPasswordEncoder()
     }
 }
 
-
+/**
+ * Contains function override of loadUserByUsername from interface UserDetailsService. Has UserRepo
+ * autowired into class for use in loadUserByUserName function.
+ *
+ */
 class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
 
+/**
+ * Sends parameter username to UserRepo.findByUsername function,
+ * retrieves a User object and returns it
+ * encapsulated in a MyUserDetails object (the principal).
+ */
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userRepository.findByUsername(username)
             ?: throw UsernameNotFoundException(username)
@@ -69,7 +83,11 @@ class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
     }
 }
 
-//user credentials object
+/**
+ * Contains function override of functions in UserDetails interface.
+ * This object is the Principal instance of the
+ * currently logged in user, encapsulated in an Authentication object.
+ */
 class MyUserDetails( val user: MyUser) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
@@ -98,13 +116,5 @@ class MyUserDetails( val user: MyUser) : UserDetails {
 
     override fun isEnabled(): Boolean {
         return true
-    }
-
-    fun setProfileDescription(description : String) {
-        user.profile?.description = description
-    }
-
-    fun getProfileDescription() : String? {
-        return user.profile?.description
     }
 }

@@ -17,4 +17,5 @@ class Post(
 
 
 interface PostRepo : CrudRepository<Post, Long> {
+    override fun findAll(): MutableIterable<Post>
 }

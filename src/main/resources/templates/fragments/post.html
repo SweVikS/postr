@@ -1,7 +1,9 @@
 
 <div class="card" th:fragment="post(text)" xmlns:th="http://www.w3.org/1999/xhtml">
-        <div th:text="${text}" class="card-body">
-            This is some text within a card body.
+        <div  class="card-body">
+            <h4 th:text="${text.heading}"></h4>
+            <p th:text="${text.body}"></p><br>
+            <p><i>Creator: <span th:text="${text.user.username}"></span></i></p>
         </div>
 </div>
 

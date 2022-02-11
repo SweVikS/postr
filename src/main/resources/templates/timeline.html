@@ -4,6 +4,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
 
+<head th:include="/fragments/head :: head">
+</head>
+
 <div layout:fragment="pageContent">
 
     <h1>Timeline Page</h1>
@@ -15,6 +18,10 @@
         <input type="text" field="*{body}" name="body">
         <p><input type="submit" value="Save" /></p>
     </form>
+    <br><br>
+
+
+    <div th:replace="fragments/post :: posts(${postList})"></div>
 </div>
 
 </html>

@@ -5,9 +5,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
 
+<head th:include="/fragments/head :: head">
+</head>
 <div layout:fragment="pageContent">
-
+<!--Home Page HTML Content-->
     <h1>Landing page</h1>
-    <div th:replace="fragments/post :: posts(${postList})"></div>
 </div>
 </html>

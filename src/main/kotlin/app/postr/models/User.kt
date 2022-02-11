@@ -8,6 +8,7 @@ import javax.persistence.CascadeType.*
  * Entity class for User object.
  */
 
+@Entity
 class MyUser(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

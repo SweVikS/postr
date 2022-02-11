@@ -1,19 +1,16 @@
-
 <div class="card" th:fragment="post(text)" xmlns:th="http://www.w3.org/1999/xhtml">
-        <div  class="card-body">
-            <h4 th:text="${text.heading}"></h4>
-            <p th:text="${text.body}"></p><br>
-            <p><i>Creator: <span th:text="${text.user.username}"></span></i></p>
-        </div>
+    <div class="card-body">
+        <h4 th:text="${text.heading}"></h4>
+        <p th:text="${text.body}"></p><br>
+        <p><i>Creator: <span th:text="${text.user.username}"></span></i></p>
+    </div>
 </div>
 
 
 <div th:fragment="posts(posts)"
      th:each="post:${posts}"
-
      xmlns:th="http://www.w3.org/1999/xhtml">
-     <div th:replace="fragments/post :: post(${post})">
-
-     </div>
+    <div th:replace="fragments/post :: post(${post})">
+    </div>
 
 </div>

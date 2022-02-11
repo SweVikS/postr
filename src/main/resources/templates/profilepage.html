@@ -11,18 +11,17 @@
 <div layout:fragment="pageContent">
 
     <h1>Profile page for <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></h1>
-    <br>
-    <br>
-    <h3>Edit Description</h3>
-    <form action="#" th:action="@{/profile/post}" th:object="${profile}" method="post">
-        <input type="text" field="*{description}" name="description">
-        <p><input type="submit" value="Save" /></p>
-    </form>
-
+    <br><br>
     <h2>Description</h2>
-    <p type="text" th:text="${description}"></p>
-
-
+    <p type="text" th:text="${profile.description}"></p><br>
+    <h2>Email</h2>
+    <p type="text" th:text="${profile.email}"></p><br>
+    <h2>Phone Number</h2>
+    <p type="text" th:text="${profile.phoneNr}"></p><br>
+    <h2>Company Role</h2>
+    <p type="text" th:text="${profile.companyRole}"></p><br>
+<br>
+    <a class="nav-link" href="editprofile">Edit Profile</a>
 </div>
 
 </html>

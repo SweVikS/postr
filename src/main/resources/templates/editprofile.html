@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{main}">
+
+<head th:include="/fragments/head :: head">
+</head>
+
+<div layout:fragment="pageContent">
+
+<!--    TODO Fixa form-->
+    <form action="#" th:action="@{/profile/post}" th:object="${profile}" method="post">
+        <h3>Edit Description</h3>
+        <input type="text" th:value="${profile.description}" name="description">
+<!--        <label for="exampleFormControlTextarea1" class="form-label" type="text"></label>-->
+<!--        <textarea class="form-control"-->
+<!--                  id="exampleFormControlTextarea1"-->
+<!--                  rows="3"-->
+<!--                  type="text"-->
+<!--                  th:value="${profile.description}"-->
+<!--                  name="description">-->
+<!--        </textarea>-->
+        <h3>Edit Email</h3>
+        <input type="email" th:value="${profile.email}" name="email">
+        <h3>Edit Phone Number</h3>
+        <input type="text" th:value="${profile.phoneNr}" name="phoneNr">
+        <h3>Edit Company Role</h3>
+        <input type="text" th:value="${profile.companyRole}" name="companyRole">
+        <p><input type="submit" value="Save"/></p>
+    </form>
+
+</div>
+
+</html>

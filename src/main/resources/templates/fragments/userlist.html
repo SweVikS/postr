@@ -1,0 +1,14 @@
+<div class="card" th:fragment="user(text)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="card-body">
+        <h4 th:text="${text.username}"></h4>
+    </div>
+</div>
+
+
+<div th:fragment="users(users)"
+     th:each="user:${users}"
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:replace="fragments/userlist :: user(${user})">
+    </div>
+
+</div>

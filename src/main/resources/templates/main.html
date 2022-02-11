@@ -39,6 +39,12 @@
                 </li>
 
                 <li th:if="${#httpServletRequest.remoteUser}"
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/userlistpage' ? 'active':''}"
+                    class="nav-item px-1">
+                    <a class="nav-link" href="userlistpage">User List</a>
+                </li>
+
+                <li th:if="${#httpServletRequest.remoteUser}"
                     th:classappend="${#httpServletRequest.getRequestURI() == '/timeline' ? 'active':''}"
                     class="nav-item px-1">
                     <a class="nav-link" href="timeline">Timeline</a>

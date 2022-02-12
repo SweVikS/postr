@@ -26,4 +26,5 @@ class MyUser(
  */
 interface UserRepo : CrudRepository<MyUser, Long> {
     fun findByUsername(username: String): MyUser
+    override fun findAll(): MutableIterable<MyUser>
 }

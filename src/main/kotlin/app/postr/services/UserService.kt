@@ -1,6 +1,7 @@
 package app.postr.services
 
 import app.postr.models.MyUser
+import app.postr.models.Post
 import app.postr.models.Profile
 import app.postr.models.UserRepo
 import org.springframework.beans.factory.annotation.Autowired
@@ -55,6 +56,10 @@ class UserService(
      */
     fun getUserByName(username: String): MyUser {
         return userRepo.findByUsername(username)
+    }
+
+    fun getAllUsers(): MutableIterable<MyUser> {
+        return userRepo.findAll()
     }
 }
 

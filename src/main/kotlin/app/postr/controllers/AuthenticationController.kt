@@ -58,7 +58,7 @@ class AuthenticationController(
         signupDTO: SignupDTO
     ): String {
         userService.saveNewUser(signupDTO)
-        return "redirect:/home"
+        return "redirect:/signin"
     }
 }
 

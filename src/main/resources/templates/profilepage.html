@@ -9,8 +9,6 @@
 </head>
 
 <div layout:fragment="pageContent">
-
-    <h1>Profile page for <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></h1>
     <br><br>
     <h2>Description</h2>
     <p type="text" th:text="${profile.description}"></p><br>
@@ -21,7 +19,7 @@
     <h2>Company Role</h2>
     <p type="text" th:text="${profile.companyRole}"></p><br>
 <br>
-    <a class="nav-link" href="editprofile">Edit Profile</a>
+    <a class="nav-link" th:if="${signedInUser}" th:href="@{/editprofile}">Edit Profile</a>
 </div>
-
+<!--#httpServletRequest.remoteUser}==${requestedUser}-->
 </html>

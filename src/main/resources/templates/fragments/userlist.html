@@ -1,6 +1,7 @@
 <div class="card" th:fragment="user(text)" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="card-body">
         <h4 th:text="${text.username}"></h4>
+        <a class="nav-link" th:href="@{profilepage/{username}(username=${text.username})}">Profile</a>
     </div>
 </div>
 

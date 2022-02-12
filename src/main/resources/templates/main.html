@@ -9,7 +9,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 <!--    HTML Code for Navigation Bar-->
     <div class="container-fluid">
-        <a class="navbar-brand" href="home">
+        <a class="navbar-brand" th:href="@{/home}">
             <img src="../img/6f4a6371837d4cc59fd9292ce3e7c0be.png" alt="logo" title="Postr brand" width="40"
                  height="40">
         </a>
@@ -29,33 +29,33 @@
                 <li th:unless="${#httpServletRequest.remoteUser}"
                     th:classappend="${#httpServletRequest.getRequestURI() == '/signin' ? 'active':''}"
                     class="nav-item px-1">
-                    <a class="nav-link" href="signin">Sign in</a>
+                    <a class="nav-link" th:href="@{/signin}">Sign in</a>
                 </li>
 
                 <li th:unless="${#httpServletRequest.remoteUser}"
                     th:classappend="${#httpServletRequest.getRequestURI() == '/signup' ? 'active':''}"
                     class="nav-item px-1">
-                    <a class="nav-link" href="signup">Sign up</a>
+                    <a class="nav-link" th:href="@{/signup}">Sign up</a>
                 </li>
 
                 <li th:if="${#httpServletRequest.remoteUser}"
                     th:classappend="${#httpServletRequest.getRequestURI() == '/userlistpage' ? 'active':''}"
                     class="nav-item px-1">
-                    <a class="nav-link" href="userlistpage">User List</a>
+                    <a class="nav-link" th:href="@{/userlistpage}">User List</a>
                 </li>
 
                 <li th:if="${#httpServletRequest.remoteUser}"
                     th:classappend="${#httpServletRequest.getRequestURI() == '/timeline' ? 'active':''}"
                     class="nav-item px-1">
-                    <a class="nav-link" href="timeline">Timeline</a>
+                    <a class="nav-link" th:href="@{/timeline}">Timeline</a>
                 </li>
 
                 <li th:if="${#httpServletRequest.remoteUser}"
                     th:classappend="${#httpServletRequest.getRequestURI() == '/profilepage' ? 'active':''}"
                     class="nav-item px-1">
-                    <a class="nav-link" href="profilepage">Profile</a>
+                    <a class="nav-link" th:href="@{/profilepage/{username}(username=${#httpServletRequest.remoteUser})}">Profile</a>
                 </li>
-
+<!--                /{username}(username=${#httpServletRequest.remoteUser})-->
                 <li th:if="${#httpServletRequest.remoteUser}" class="nav-item px-1">
                     <form th:action="@{/logout}" method="post">
                         <input class="nav-link" type="submit" value="Sign Out"/>

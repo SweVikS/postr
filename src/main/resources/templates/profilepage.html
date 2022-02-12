@@ -10,7 +10,7 @@
 
 <div layout:fragment="pageContent">
     <br><br>
-    <h2>Description</h2>
+    <h2>Bio</h2>
     <p type="text" th:text="${profile.description}"></p><br>
     <h2>Email</h2>
     <p type="text" th:text="${profile.email}"></p><br>
@@ -19,7 +19,7 @@
     <h2>Company Role</h2>
     <p type="text" th:text="${profile.companyRole}"></p><br>
 <br>
-    <a class="nav-link" th:if="${signedInUser}" th:href="@{/editprofile}">Edit Profile</a>
+    <a class="btn btn-secondary btn-lg btn-block" th:if="${signedInUser}" th:href="@{/editprofile}">Edit Profile</a>
 </div>
 <!--#httpServletRequest.remoteUser}==${requestedUser}-->
 </html>

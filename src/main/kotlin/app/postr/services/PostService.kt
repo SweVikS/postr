@@ -6,6 +6,10 @@ import app.postr.models.UserRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+/**
+ * Service Class for creating layer between Controller functions and Repositories.
+ * Has UserService, PostRepo and UserRepo Autowired for use in functions.
+ */
 @Service
 class PostService(
     @Autowired
@@ -13,9 +17,10 @@ class PostService(
     @Autowired
     val postRepo: PostRepo,
     val userRepo: UserRepo
-
-
 ) {
+    /**
+     * Persists a new Post object in database. Recieves postDTO and username from Controller function.
+     */
     fun savePost(postDTO: postDTO, username: String) {
 
         val user = userService.getUserByName(username)
@@ -28,8 +33,11 @@ class PostService(
     }
 
     fun findAll(): MutableIterable<Post> {
-       return postRepo.findAll()
+        return postRepo.findAll()
     }
 }
 
+/**
+ * Data Transfer Object for encapsulating Post object data.
+ */
 class postDTO(var heading: String, var body: String)

@@ -3,6 +3,9 @@ package app.postr.models
 import org.springframework.data.repository.CrudRepository
 import javax.persistence.*
 
+/**
+ * Entity Model Class for defining and creating Post table in PostgreSQL database.
+ */
 @Entity
 class Post(
     @Id
@@ -15,7 +18,9 @@ class Post(
     val user: MyUser? = null
 )
 
-
+/**
+ * Interface for implementing Spring Data CrudRepository functions on Post objects. Repository is link between backend and database.
+ */
 interface PostRepo : CrudRepository<Post, Long> {
     override fun findAll(): MutableIterable<Post>
 }

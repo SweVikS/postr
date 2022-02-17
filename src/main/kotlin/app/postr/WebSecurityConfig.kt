@@ -19,13 +19,17 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.stereotype.Service
 
-
+/**
+ * Class for handling Authentication and Authorization.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig(@Autowired val userRepo : UserRepo) : WebSecurityConfigurerAdapter() {
 
 /**
- * Intercepts all requests and redirects according to authentication status.
+ * Intercepts all requests and redirects according to authentication status. Recieves Authentication object containing
+ * User Credentials if user is not logged in. When user is logged in, Authentication object containing Principal is sent
+ * to ThreadLocal. Principal is used to identify logged in User.
  */
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
@@ -50,14 +54,17 @@ public class WebSecurityConfig(@Autowired val userRepo : UserRepo) : WebSecurity
             .logoutSuccessUrl("/home");
     }
 
-    /**
-     * Configuration Bean used by configure function to access the UserRepo.
-     */
+/**
+ * Configuration Bean used by configure function to access the UserRepo.
+ */
     @Bean
     override fun userDetailsService(): UserDetailsService? {
         return MyUserDetailsService(userRepo)
     }
 
+/**
+ * Configuration Bean used by configure function to handle password encryption.
+ */
     @Bean
     fun passWordEncoder(): PasswordEncoder{
         return BCryptPasswordEncoder()

@@ -58,6 +58,9 @@ class UserService(
         return userRepo.findByUsername(username)
     }
 
+    /**
+     * Retrieves all User object from database with UserRepo.
+     */
     fun getAllUsers(): MutableIterable<MyUser> {
         return userRepo.findAll()
     }

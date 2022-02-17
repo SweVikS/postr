@@ -5,9 +5,8 @@ import javax.persistence.*
 import javax.persistence.CascadeType.*
 
 /**
- * Entity class for User object.
+ * Entity Model Class for defining and creating MyUser table in PostgreSQL database.
  */
-
 @Entity
 class MyUser(
     @Id
@@ -22,7 +21,7 @@ class MyUser(
 )
 
 /**
- * Interface for generic CRUD functions on User object. Extends Spring Data CrudRepository interface.
+ * Interface for implementing Spring Data CrudRepository functions on MyUser objects. Repository is link between backend and database.
  */
 interface UserRepo : CrudRepository<MyUser, Long> {
     fun findByUsername(username: String): MyUser

@@ -46,6 +46,7 @@ public class WebSecurityConfig(@Autowired val userRepo : UserRepo) : WebSecurity
             .and()
             .formLogin()
             .loginPage("/signin")
+            .defaultSuccessUrl("/timeline")
             .failureUrl("/signin-failure")
             .permitAll()
             .and()

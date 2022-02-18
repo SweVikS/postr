@@ -1,12 +1,14 @@
 package app.postr.controllers
 
-import app.postr.services.SignupDTO
+import app.postr.dtos.UserDTO
 import app.postr.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
-import javax.servlet.http.HttpServletRequest
+import org.springframework.web.context.request.WebRequest
+
 
 /**
  * Handles User signing in/signing up processes. UserService is autowired into the class for handling
@@ -42,24 +44,13 @@ class AuthenticationController(
      * Mapped to GET Request "signup". Has titleModel Model as in parameter for dynamically setting
      * HTML page <title> in Thymeleaf fragment head.html. Returns signup.html to client.
      */
-    @GetMapping("signup")
-    fun signup(titleModel: Model): String {
-        titleModel.addAttribute("pagetitle", "Postr - Sign up")
-        return "signup"
-    }
+//    @GetMapping("signup")
+//    fun signup(titleModel: Model,userDTOModel: Model): String {
+//        val userDTO =new UserDTO
+//        titleModel.addAttribute("pagetitle", "Postr - Sign up")
+//        return "signup"
+//    }
 
-    /**
-     *Mapped to POST Request "signup". Has signupDTO as in parameter,sends DTO to UserService.
-     * Returns redirection to home.html to client.
-     */
-    @PostMapping("signup")
-    fun signupPost(
-        @ModelAttribute
-        signupDTO: SignupDTO
-    ): String {
-        userService.saveNewUser(signupDTO)
-        return "redirect:/signin"
-    }
 }
 
 

@@ -1,54 +1,66 @@
 package app.postr.services
 
+import app.postr.dtos.UserDTO
 import app.postr.models.MyUser
-import app.postr.models.Post
 import app.postr.models.Profile
 import app.postr.models.UserRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import java.util.*
+import javax.transaction.Transactional
 
 /**
  * Handles User object creation and saves the entity in database. UserRepo is autowired into the class
  * for persisting data in database.
  */
 @Service
+@Transactional
 class UserService(
     @Autowired
     val userRepo: UserRepo
-) {
+) : IUserService {
 
     /**
      * Encrypts password to be saved in database.
      */
     private val bCryptEncoder = BCryptPasswordEncoder()
 
-    /**
-     * Receives signupDTO from Controller function. Encrypts password with bCryptEncoder.
-     * Creates a new User object and populates it with credentials from DTO, along with an empty
-     * Profile object and a mutable List of Post objects. Sends User object to UserRepo which
-     * saves User object in database.
-     */
-    fun saveNewUser(signupDTO: SignupDTO) {
 
-        val encryptedPassword = bCryptEncoder.encode(signupDTO.password)
+    override fun registerNewUser(userDTO: UserDTO?): MyUser? {
 
+        val encryptedPassword = bCryptEncoder.encode(userDTO?.password)
 
-        val newProfile = Profile(description = "")
-
-        val newUser = MyUser(
-            username = signupDTO.username,
-            password = encryptedPassword,
-            profile = newProfile,
-            posts = mutableListOf()
-        )
-        try {
-            userRepo.save(newUser)
-        } catch (ex: Exception) {
-//TODO Implement ExceptionHandler
+        if(emailExist(userDTO?.email)){
+            throw UserAlreadyExistException("There is an account with that email address: "
+                    + userDTO?.email);
         }
 
+        val newProfile = Profile(description = "")
+        val newUser = MyUser(
+            username = userDTO?.username,
+            password = encryptedPassword,
+            email = userDTO?.email,
+            profile = newProfile,
+            posts = mutableListOf()
+
+        )
+
+        return userRepo.save(newUser)
+    }
+
+    class UserAlreadyExistException : RuntimeException {
+        constructor() : super() {}
+        constructor(message: String?, cause: Throwable?) : super(message, cause) {}
+        constructor(message: String?) : super(message) {}
+        constructor(cause: Throwable?) : super(cause) {}
+
+        companion object {
+            private const val serialVersionUID = 5861310537366287163L
+        }
+    }
+
+    fun emailExist(email: String?): Boolean {
+        return userRepo.findByEmail(email) !=null
     }
 
     /**
@@ -64,6 +76,10 @@ class UserService(
     fun getAllUsers(): MutableIterable<MyUser> {
         return userRepo.findAll()
     }
+}
+
+interface IUserService {
+    fun registerNewUser(userDto: UserDTO?): MyUser?
 }
 
 /**

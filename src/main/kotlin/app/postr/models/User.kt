@@ -9,22 +9,38 @@ import javax.persistence.CascadeType.*
  */
 @Entity
 class MyUser(
+    username: String,
+    password: String,
+    email: String?,
+    profile: Profile,
+    posts: MutableList<Post>,
+    roles: Collection<Role>
+) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long? = null,
+    val id: Long? = null
 
     @Column(nullable = false, unique = true)
-    val username: String? = null,
+    var username: String? = username
 
-    val password: String? = null,
+    var password: String? = password
 
-    val email: String? = null,
+    var email: String? = email
 
-    @OneToOne(cascade = [(ALL)]) var profile: Profile,
+    @OneToOne(cascade = [(ALL)])
+    var profile: Profile? = profile
 
     @OneToMany(cascade = [ALL], fetch = FetchType.EAGER, mappedBy = "user")
-    var posts: MutableList<Post>
-)
+    var posts: MutableList<Post>? = posts
+
+    @ManyToMany
+    @JoinTable(
+        name = "users_roles",
+        joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")]
+    )
+    var roles: Collection<Role>? = roles
+}
 
 /**
  * Interface for implementing Spring Data CrudRepository functions on MyUser objects. Repository is link between backend and database.
@@ -32,8 +48,5 @@ class MyUser(
 interface UserRepo : CrudRepository<MyUser, Long> {
     fun findByUsername(username: String): MyUser
     fun findByEmail(email: String?): MyUser
-
-
     override fun findAll(): MutableIterable<MyUser>
-
 }

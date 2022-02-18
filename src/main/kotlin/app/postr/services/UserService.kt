@@ -1,12 +1,11 @@
 package app.postr.services
 
 import app.postr.dtos.UserDTO
-import app.postr.models.MyUser
-import app.postr.models.Profile
-import app.postr.models.UserRepo
+import app.postr.models.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import java.util.*
 import javax.transaction.Transactional
 
 /**
@@ -17,7 +16,9 @@ import javax.transaction.Transactional
 @Transactional
 class UserService(
     @Autowired
-    val userRepo: UserRepo
+    val userRepo: UserRepo,
+    @Autowired
+    val roleRepo: RoleRepo
 ) : IUserService {
 
     /**
@@ -30,20 +31,23 @@ class UserService(
 
         val encryptedPassword = bCryptEncoder.encode(userDTO?.password)
 
-        if(emailExist(userDTO?.email)){
-            throw UserAlreadyExistException("There is an account with that email address: "
-                    + userDTO?.email);
+        if (emailExist(userDTO?.email)) {
+            throw UserAlreadyExistException(
+                "There is an account with that email address: "
+                        + userDTO?.email
+            );
         }
 
-        val newProfile = Profile(description = "")
-        val newUser = MyUser(
-            username = userDTO?.username,
-            password = encryptedPassword,
-            email = userDTO?.email,
-            profile = newProfile,
-            posts = mutableListOf()
-
-        )
+        var newProfile = Profile(description = "")
+        var role: Role? = roleRepo.findByName("ROLE_USER")
+        var roleCollection: MutableCollection<Role> :
+        roleCollection.add(role)
+        var user: MyUser? = null
+        user?.username = userDTO?.username
+        user?.password = encryptedPassword
+        user?.email = userDTO?.email
+        user?.profile = newProfile
+        user?.roles = roleCollection
 
         return userRepo.save(newUser)
     }
@@ -60,7 +64,7 @@ class UserService(
     }
 
     fun emailExist(email: String?): Boolean {
-        return userRepo.findByEmail(email) !=null
+        return userRepo.findByEmail(email) != null
     }
 
     /**

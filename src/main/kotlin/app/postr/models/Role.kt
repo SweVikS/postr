@@ -5,7 +5,7 @@ import javax.persistence.*
 
 
 @Entity
-class Role(roleName: String?, newPrivileges: Collection<Privilege?>?) {
+class Role(roleName: String?, privileges: MutableCollection<Privilege>?) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private val id: Long? = null
@@ -20,9 +20,8 @@ class Role(roleName: String?, newPrivileges: Collection<Privilege?>?) {
         joinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "privilege_id", referencedColumnName = "id")]
     )
-    private var privileges: Collection<Privilege?>? = newPrivileges
+    private var privileges: MutableCollection<Privilege?>? = null
 }
-
 interface RoleRepo : CrudRepository<Role, Long> {
     fun findByName(name: String?) : Role?
 }

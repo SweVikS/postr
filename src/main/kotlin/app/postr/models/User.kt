@@ -13,8 +13,7 @@ class MyUser(
     password: String,
     email: String?,
     profile: Profile,
-    posts: MutableList<Post>,
-    roles: Collection<Role>
+//    roles: MutableCollection<Role>?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +30,7 @@ class MyUser(
     var profile: Profile? = profile
 
     @OneToMany(cascade = [ALL], fetch = FetchType.EAGER, mappedBy = "user")
-    var posts: MutableList<Post>? = posts
+    var posts: MutableList<Post>? = null
 
     @ManyToMany
     @JoinTable(
@@ -39,7 +38,7 @@ class MyUser(
         joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")]
     )
-    var roles: Collection<Role>? = roles
+    var roles: MutableCollection<Role>? = null
 }
 
 /**

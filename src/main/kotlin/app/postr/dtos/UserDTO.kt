@@ -10,20 +10,22 @@ class UserDTO {
 
     @NotNull
     @NotEmpty
-    val username: String=""
-
-    @NotNull
-    @NotEmpty
-    val password: String=""
-
-    @NotNull
-    @NotEmpty
-    val matchingPassword: String=""
+    var username: String = ""
 
     @ValidEmail
     @NotNull
     @NotEmpty
-    val email: String=""
+    var email: String = ""
+
+    @NotNull
+    @NotEmpty
+    var password: String = ""
+
+    @NotNull
+    @NotEmpty
+    var matchingPassword: String = ""
+
+
 }
 
 

@@ -21,8 +21,6 @@ class SetupRolesAndPrivileges(
     var alreadySetup = false
 
 
-
-
     @Transactional
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
         if (alreadySetup) return
@@ -30,7 +28,9 @@ class SetupRolesAndPrivileges(
         val readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE")
         val writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE")
 
-        createRoleIfNotFound("ROLE_USER", listOf(readPrivilege,writePrivilege))
+        var userPrivileges = arrayListOf<Privilege>(readPrivilege,writePrivilege)
+
+            createRoleIfNotFound("ROLE_USER",userPrivileges)
         alreadySetup = true
     }
 
@@ -47,11 +47,11 @@ class SetupRolesAndPrivileges(
     @Transactional
     fun createRoleIfNotFound(
         roleName: String?,
-        privileges: Collection<Privilege>?
+        privileges: MutableCollection<Privilege>?
     ): Role? {
         var newRole: Role? = roleRepo.findByName(roleName)
         if (newRole == null) {
-            newRole = Role(roleName,privileges)
+            newRole = Role(roleName, privileges)
             newRole
             roleRepo.save(newRole)
         }

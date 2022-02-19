@@ -7,15 +7,25 @@
                     <div class="card-body px-5 py-2 text-center">
 
                         <h4 class="m-3">Sign up</h4>
-                        <form method="post" th:action="@{/signup}">
+                        <form method="POST" th:action="@{/signup}" th:object="${user}">
                             <div class="form-outline mb-2">
-                                <input type="text" name="username" class="form-control form-control-lg"/>
+                                <input th:type="text" th:field="*{username}" class="form-control form-control-lg"/>
                                 <label class="form-label">Username</label>
                             </div>
 
                             <div class="form-outline mb-2">
-                                <input type="password" name="password" class="form-control form-control-lg"/>
+                                <input th:type="email" th:field="*{email}" class="form-control form-control-lg"/>
+                                <label class="form-label">Email</label>
+                            </div>
+
+                            <div class="form-outline mb-2">
+                                <input th:type="password" th:field="*{password}" class="form-control form-control-lg"/>
                                 <label class="form-label">Password</label>
+                            </div>
+
+                            <div class="form-outline mb-2">
+                                <input th:type="password" th:field="*{matchingPassword}" class="form-control form-control-lg"/>
+                                <label class="form-label">Confirm Password</label>
                             </div>
                             <button class="btn btn-secondary btn-lg btn-block mb-3" type="submit">Sign up</button>
                         </form>

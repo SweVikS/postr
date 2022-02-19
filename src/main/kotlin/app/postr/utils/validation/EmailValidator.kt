@@ -10,10 +10,10 @@ import javax.validation.Payload
 import kotlin.reflect.KClass
 
 
-abstract class EmailValidator : ConstraintValidator<ValidEmail, String> {
+class EmailValidator : ConstraintValidator<ValidEmail, String> {
 
-    abstract var pattern: Pattern
-    abstract var matcher: Matcher
+    lateinit var pattern: Pattern
+    lateinit var matcher: Matcher
 
     val EMAIL_PATTERN: String =
         "^[_A-Za-z0-9-+]+" + "(.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$"

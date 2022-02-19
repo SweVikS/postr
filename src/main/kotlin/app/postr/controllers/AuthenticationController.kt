@@ -25,7 +25,7 @@ class AuthenticationController(
      * HTML page <title> in Thymeleaf fragment head.html. Returns signin.html to client.
      */
     @GetMapping("signin")
-    fun Signin(titleModel: Model): String {
+    fun SigninGet(titleModel: Model): String {
         titleModel.addAttribute("pagetitle", "Postr - Sign in")
         return "signin"
     }
@@ -44,12 +44,6 @@ class AuthenticationController(
      * Mapped to GET Request "signup". Has titleModel Model as in parameter for dynamically setting
      * HTML page <title> in Thymeleaf fragment head.html. Returns signup.html to client.
      */
-//    @GetMapping("signup")
-//    fun signup(titleModel: Model,userDTOModel: Model): String {
-//        val userDTO =new UserDTO
-//        titleModel.addAttribute("pagetitle", "Postr - Sign up")
-//        return "signup"
-//    }
 
 }
 

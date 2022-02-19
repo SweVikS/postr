@@ -6,6 +6,7 @@ import app.postr.models.UserRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -18,14 +19,16 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import java.util.*
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+
 
 /**
  * Class for handling Authentication and Authorization.
  */
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig(@Autowired val userRepo: UserRepo) : WebSecurityConfigurerAdapter() {
+public abstract class WebSecurityConfig(@Autowired val userRepo: UserRepo) : WebSecurityConfigurerAdapter() {
 
     /**
      * Intercepts all requests and redirects according to authentication status. Recieves Authentication object containing
@@ -47,7 +50,6 @@ public class WebSecurityConfig(@Autowired val userRepo: UserRepo) : WebSecurityC
             .and()
             .formLogin()
             .loginPage("/signin")
-            .defaultSuccessUrl("/timeline")
             .failureUrl("/signin-failure")
             .permitAll()
             .and()
@@ -59,15 +61,25 @@ public class WebSecurityConfig(@Autowired val userRepo: UserRepo) : WebSecurityC
     /**
      * Configuration Bean used by configure function to access the UserRepo.
      */
-    @Bean
-    override fun userDetailsService(): UserDetailsService? {
-        return MyUserDetailsService(userRepo)
+//    @Bean
+//    override fun userDetailsService(): UserDetailsService? {
+//        return MyUserDetailsService(userRepo)
+//    }
+
+    @Autowired
+    val userDetailsService : MyUserDetailsService = MyUserDetailsService(userRepo)
+
+    @Autowired
+    override fun configure(auth: AuthenticationManagerBuilder) {
+        auth.userDetailsService(userDetailsService)
     }
 
-    @Bean
-    override fun configure(auth: AuthenticationManagerBuilder?) {
-        auth?.userDetailsService(userDetailsService())
-    }
+//    @Bean
+//    @Throws(java.lang.Exception::class)
+//    override fun authenticationManagerBean(): AuthenticationManager? {
+//        return super.authenticationManagerBean()
+//    }
+
 
     /**
      * Configuration Bean used by configure function to handle password encryption.
@@ -83,6 +95,8 @@ public class WebSecurityConfig(@Autowired val userRepo: UserRepo) : WebSecurityC
  * autowired into class for use in loadUserByUserName function.
  *
  */
+@Service
+@Transactional
 class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
 
     /**
@@ -92,10 +106,6 @@ class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
      */
     override fun loadUserByUsername(email: String): UserDetails {
         val user = userRepository.findByEmail(email)
-        if (user == null) {
-            throw UsernameNotFoundException("No user found with email adress: " + email)
-            return MyUserDetails(user)
-        }
 
         var enabled: Boolean = true
         var accountNonExpired: Boolean = true
@@ -108,9 +118,9 @@ class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
         )
     }
 
-    fun getAuthorities(roles: Collection<Role>) : MutableList<out GrantedAuthority>{
+    fun getAuthorities(roles: MutableCollection<Role>?) : MutableList<out GrantedAuthority>{
  val authorities = mutableListOf<GrantedAuthority>()
- for(role : Role in roles){
+ for(role : Role in roles!!){
      authorities.add(SimpleGrantedAuthority(role.toString()))
  }
         return authorities
@@ -124,33 +134,33 @@ class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
  * This object is the Principal instance of the
  * currently logged in user, encapsulated in an Authentication object.
  */
-class MyUserDetails(val user: MyUser) : UserDetails {
-
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return HashSet()
-    }
-
-    override fun getPassword(): String {
-        return user.password!!
-    }
-
-    override fun getUsername(): String {
-        return user.username!!
-    }
-
-    override fun isAccountNonExpired(): Boolean {
-        return true
-    }
-
-    override fun isAccountNonLocked(): Boolean {
-        return true
-    }
-
-    override fun isCredentialsNonExpired(): Boolean {
-        return true
-    }
-
-    override fun isEnabled(): Boolean {
-        return true
-    }
-}
+//class MyUserDetails(val user: MyUser) : UserDetails {
+//
+//    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+//        return HashSet()
+//    }
+//
+//    override fun getPassword(): String {
+//        return user.password!!
+//    }
+//
+//    override fun getUsername(): String {
+//        return user.username!!
+//    }
+//
+//    override fun isAccountNonExpired(): Boolean {
+//        return true
+//    }
+//
+//    override fun isAccountNonLocked(): Boolean {
+//        return true
+//    }
+//
+//    override fun isCredentialsNonExpired(): Boolean {
+//        return true
+//    }
+//
+//    override fun isEnabled(): Boolean {
+//        return true
+//    }
+//}

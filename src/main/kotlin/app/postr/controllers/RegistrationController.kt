@@ -6,6 +6,7 @@ import app.postr.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
 import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -33,16 +34,17 @@ class RegistrationController(
         @Valid
         @ModelAttribute("user")
         userDTO : UserDTO,
-        request : HttpServletRequest,
-        errors : Errors,
-        msgModel: Model
+        result: BindingResult
+//        request : HttpServletRequest,
+//        errors : Errors,
+//        msgModel: Model
     ): String {
-        try {
-            userService.registerNewUser(userDTO)
-        } catch (uaeEx: UserService.UserAlreadyExistException) {
-            msgModel.addAttribute("message", "An account for that username/email already exists.")
-        return "signup"
+        if (result.hasErrors()) {
+            return "signup";
         }
+
+            userService.registerNewUser(userDTO)
+
         return "redirect:/signin"
     }
 }

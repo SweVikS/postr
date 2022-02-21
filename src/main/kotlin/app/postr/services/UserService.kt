@@ -3,7 +3,6 @@ package app.postr.services
 import app.postr.dtos.UserDTO
 import app.postr.models.*
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
@@ -30,12 +29,12 @@ class UserService(
     fun registerNewUser(userDTO: UserDTO): MyUser? {
         val encryptedPassword = bCryptEncoder.encode(userDTO.password)
 
-        if (emailExist(userDTO.email)) {
-            throw UserAlreadyExistException(
-                "There is an account with that email address: "
-                        + userDTO.email
-            );
-        }
+//        if (emailExist(userDTO.email)) {
+//            throw UserAlreadyExistException(
+//                "There is an account with that email address: "
+//                        + userDTO.email
+//            );
+//        }
 
         var newProfile = Profile(description = "")
         var role: Role? = roleRepo.findByName("ROLE_USER")
@@ -55,29 +54,31 @@ class UserService(
     }
 
 
-    class UserAlreadyExistException : RuntimeException {
-        constructor() : super() {}
-        constructor(message: String?, cause: Throwable?) : super(message, cause) {}
-        constructor(message: String?) : super(message) {}
-        constructor(cause: Throwable?) : super(cause) {}
+//    class UserAlreadyExistException : RuntimeException {
+//        constructor() : super() {}
+//        constructor(message: String?, cause: Throwable?) : super(message, cause) {}
+//        constructor(message: String?) : super(message) {}
+//        constructor(cause: Throwable?) : super(cause) {}
+//
+//        companion object {
+//            private const val serialVersionUID = 5861310537366287163L
+//        }
+//    }
 
-        companion object {
-            private const val serialVersionUID = 5861310537366287163L
-        }
-    }
-
-
-    fun emailExist(email: String): Boolean {
-        var emailExist: Boolean = false
-        try {
-            userRepo.findByEmail(email)
-
-        } catch (e: EmptyResultDataAccessException) {
-            emailExist == true
-        }
-
-        return emailExist
-    }
+//    private fun emailExist(email: String): Boolean {
+//        return userRepo.findByEmail(email) != null
+//    }
+//    fun emailExist(email: String): Boolean {
+//        var emailExist: Boolean = false
+//        try {
+//            userRepo.findByEmail(email)
+//
+//        } catch (e: EmptyResultDataAccessException) {
+//            emailExist == true
+//        }
+//
+//        return emailExist
+//    }
 
     /**
      * Retrieves User object from database with UserRepo.
@@ -92,7 +93,6 @@ class UserService(
     fun getAllUsers(): MutableIterable<MyUser> {
         return userRepo.findAll()
     }
-
 
 }
 

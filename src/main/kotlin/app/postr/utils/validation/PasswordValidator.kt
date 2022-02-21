@@ -24,7 +24,7 @@ class PasswordValidator : ConstraintValidator<PasswordMatch, Object> {
 @Retention(AnnotationRetention.RUNTIME)
 @Constraint(validatedBy = [PasswordValidator::class])
 annotation class PasswordMatch(
-    val message: String = "Passwords don't match",
+    val message: String = "Passwords do not match",
     val groups: Array<KClass<*>> = [],
     val payload: Array<KClass<out Payload>> = []
 )

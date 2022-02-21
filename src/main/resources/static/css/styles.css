@@ -1,3 +1,8 @@
 .navbar-nav > .active > a {
 color: yellow !important;
 }
+
+
+.error {
+color:red;
+}

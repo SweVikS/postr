@@ -11,23 +11,31 @@
                             <div class="form-outline mb-2">
                                 <input th:type="text" th:field="*{username}" class="form-control form-control-lg"/>
                                 <label class="form-label">Username</label>
+                                <p th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}" />
                             </div>
 
                             <div class="form-outline mb-2">
                                 <input th:type="email" th:field="*{email}" class="form-control form-control-lg"/>
                                 <label class="form-label">Email</label>
+                                <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" />
                             </div>
 
                             <div class="form-outline mb-2">
                                 <input th:type="password" th:field="*{password}" class="form-control form-control-lg"/>
                                 <label class="form-label">Password</label>
+                                <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}" />
                             </div>
 
                             <div class="form-outline mb-2">
                                 <input th:type="password" th:field="*{matchingPassword}" class="form-control form-control-lg"/>
                                 <label class="form-label">Confirm Password</label>
+                                <p th:if="${#fields.hasErrors('matchingPassword')}" th:errorclass="error" th:errors="*{matchingPassword}" />
+                            </div>
+                            <div th:if="${#fields.hasErrors('global')}">
+                                <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
                             </div>
                             <button class="btn btn-secondary btn-lg btn-block mb-3" type="submit">Sign up</button>
+
                         </form>
 
                     </div>

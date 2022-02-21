@@ -8,9 +8,11 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
@@ -28,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional
  */
 @Configuration
 @EnableWebSecurity
-public abstract class WebSecurityConfig(@Autowired val userRepo: UserRepo) : WebSecurityConfigurerAdapter() {
+public class WebSecurityConfig(@Autowired val userRepo: UserRepo) : WebSecurityConfigurerAdapter() {
 
     /**
      * Intercepts all requests and redirects according to authentication status. Recieves Authentication object containing
@@ -67,7 +69,7 @@ public abstract class WebSecurityConfig(@Autowired val userRepo: UserRepo) : Web
 //    }
 
     @Autowired
-    val userDetailsService : MyUserDetailsService = MyUserDetailsService(userRepo)
+    val userDetailsService: MyUserDetailsService = MyUserDetailsService(userRepo)
 
     @Autowired
     override fun configure(auth: AuthenticationManagerBuilder) {
@@ -97,15 +99,17 @@ public abstract class WebSecurityConfig(@Autowired val userRepo: UserRepo) : Web
  */
 @Service
 @Transactional
-class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
+class MyUserDetailsService(
+    @Autowired
+    val userRepository: UserRepo) : UserDetailsService {
 
     /**
      * Sends parameter username to UserRepo.findByUsername function,
      * retrieves a User object and returns it
      * encapsulated in a MyUserDetails object (the principal).
      */
-    override fun loadUserByUsername(email: String): UserDetails {
-        val user = userRepository.findByEmail(email)
+    override fun loadUserByUsername(username: String): UserDetails {
+        val user = userRepository.findByUsername(username)
 
         var enabled: Boolean = true
         var accountNonExpired: Boolean = true
@@ -113,21 +117,33 @@ class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
         var accountNonLocked: Boolean = true
 
         return User(
-            user.email, user.password, enabled, accountNonExpired,
+            user.username, user.password, enabled, accountNonExpired,
             credentialsNonExpired, accountNonLocked, getAuthorities(user.roles)
         )
     }
 
-    fun getAuthorities(roles: MutableCollection<Role>?) : MutableList<out GrantedAuthority>{
- val authorities = mutableListOf<GrantedAuthority>()
- for(role : Role in roles!!){
-     authorities.add(SimpleGrantedAuthority(role.toString()))
- }
+    fun getAuthorities(roles: MutableCollection<Role>?): MutableList<out GrantedAuthority> {
+        val authorities = mutableListOf<GrantedAuthority>()
+        for (role: Role in roles!!) {
+            authorities.add(SimpleGrantedAuthority(role.toString()))
+        }
         return authorities
     }
-
-
 }
+
+//class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
+//
+//    /**
+//     * Sends parameter username to UserRepo.findByUsername function,
+//     * retrieves a User object and returns it
+//     * encapsulated in a MyUserDetails object (the principal).
+//     */
+//    override fun loadUserByUsername(username: String): UserDetails {
+//        val user = userRepository.findByUsername(username)
+//            ?: throw UsernameNotFoundException(username)
+//        return MyUserDetails(user)
+//    }
+//}
 
 /**
  * Contains function override of functions in UserDetails interface.

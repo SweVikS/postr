@@ -35,12 +35,12 @@ class RegistrationController(
         userDTO : UserDTO,
         request : HttpServletRequest,
         errors : Errors,
-//        msgModel: Model
+        msgModel: Model
     ): String {
         try {
             userService.registerNewUser(userDTO)
         } catch (uaeEx: UserService.UserAlreadyExistException) {
-//            msgModel.addAttribute("message", "An account for that username/email already exists.")
+            msgModel.addAttribute("message", "An account for that username/email already exists.")
         return "signup"
         }
         return "redirect:/signin"

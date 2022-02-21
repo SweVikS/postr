@@ -27,10 +27,8 @@ class UserService(
      */
     private val bCryptEncoder = BCryptPasswordEncoder()
 
-
     fun registerNewUser(userDTO: UserDTO): MyUser? {
-
-        val encryptedPassword = bCryptEncoder.encode(userDTO?.password)
+        val encryptedPassword = bCryptEncoder.encode(userDTO.password)
 
         if (emailExist(userDTO.email)) {
             throw UserAlreadyExistException(
@@ -51,15 +49,11 @@ class UserService(
         if (role != null) {
             user.roles?.add(role)
         }
-//        user?.username = userDTO?.username
-//        user?.password = encryptedPassword
-//        user?.email = userDTO?.email
-//        user?.profile = newProfile
-//        user?.roles?.add(role!!)
 
 
         return userRepo.save(user)
     }
+
 
     class UserAlreadyExistException : RuntimeException {
         constructor() : super() {}
@@ -98,6 +92,8 @@ class UserService(
     fun getAllUsers(): MutableIterable<MyUser> {
         return userRepo.findAll()
     }
+
+
 }
 
 //interface IUserService {

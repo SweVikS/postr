@@ -31,6 +31,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.security:spring-security-test")
+	implementation("org.passay:passay:1.6.1")
+
 }
 
 

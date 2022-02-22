@@ -2,33 +2,41 @@
          xmlns:th="http://www.thymeleaf.org">
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center">
+
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-header text-center">
+                    <h4 class="mx-auto w-100">Sign up</h4>
+                    </div>
                     <div class="card-body px-5 py-2 text-center">
 
-                        <h4 class="m-3">Sign up</h4>
+
                         <form method="POST" th:action="@{/signup}" th:object="${user}">
                             <div class="form-outline mb-2">
-                                <input th:type="text" th:field="*{username}" class="form-control form-control-lg"/>
                                 <label class="form-label">Username</label>
+                                <input th:type="text" th:field="*{username}" class="form-control form-control-lg"/>
+
                                 <p th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}" />
                             </div>
 
                             <div class="form-outline mb-2">
-                                <input th:type="email" th:field="*{email}" class="form-control form-control-lg"/>
                                 <label class="form-label">Email</label>
+                                <input th:type="email" th:field="*{email}" class="form-control form-control-lg"/>
+
                                 <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" />
                             </div>
 
                             <div class="form-outline mb-2">
-                                <input th:type="password" th:field="*{password}" class="form-control form-control-lg"/>
                                 <label class="form-label">Password</label>
+                                <input th:type="password" th:field="*{password}" class="form-control form-control-lg"/>
+
                                 <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}" />
                             </div>
 
                             <div class="form-outline mb-2">
-                                <input th:type="password" th:field="*{matchingPassword}" class="form-control form-control-lg"/>
                                 <label class="form-label">Confirm Password</label>
+                                <input th:type="password" th:field="*{matchingPassword}" class="form-control form-control-lg"/>
+
                                 <p th:if="${#fields.hasErrors('matchingPassword')}" th:errorclass="error" th:errors="*{matchingPassword}" />
                             </div>
                             <div th:if="${#fields.hasErrors('global')}">

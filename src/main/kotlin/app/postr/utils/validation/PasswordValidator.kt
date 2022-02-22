@@ -1,41 +1,51 @@
 package app.postr.utils.validation
 
-
 import app.postr.dtos.UserDTO
+import org.passay.*
+import java.util.*
 import javax.validation.Constraint
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
 import javax.validation.Payload
 import kotlin.reflect.KClass
 
+class ValidPasswordValidator : ConstraintValidator<ValidPassword, String> {
 
-class PasswordValidator : ConstraintValidator<PasswordMatch, Object> {
+    override fun initialize(constraintAnnotation: ValidPassword) {}
 
-    override fun initialize(constraintAnnotation: PasswordMatch) {}
+    override fun isValid(password: String, context: ConstraintValidatorContext): Boolean {
 
-    override fun isValid(ob: Object, context: ConstraintValidatorContext): Boolean {
-        var user: UserDTO = ob as UserDTO
-        return user.password.equals(user.matchingPassword)
+        var props : Properties = Properties()
+
+        var passayValidator: PasswordValidator = PasswordValidator(
+            LengthRule(8, 30),
+            CharacterRule(EnglishCharacterData.UpperCase, 1),
+            CharacterRule(EnglishCharacterData.LowerCase, 1),
+            CharacterRule(EnglishCharacterData.Digit, 1),
+            CharacterRule(EnglishCharacterData.Special, 1),
+            WhitespaceRule()
+        )
+
+        var result: RuleResult = passayValidator.validate(PasswordData(password))
+        if (result.isValid) {
+            return true
+        }
+
+        var msg = passayValidator.getMessages(result).joinToString().replace(".","")
+
+        context.disableDefaultConstraintViolation()
+        context.buildConstraintViolationWithTemplate(msg)
+            .addConstraintViolation()
+        return false
     }
 }
 
 
-@Target(AnnotationTarget.TYPE, AnnotationTarget.CLASS)
+@Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
-@Constraint(validatedBy = [PasswordValidator::class])
-annotation class PasswordMatch(
-    val message: String = "Passwords do not match",
+@Constraint(validatedBy = [ValidPasswordValidator::class])
+annotation class ValidPassword(
+    val message: String = "Invalid password",
     val groups: Array<KClass<*>> = [],
     val payload: Array<KClass<out Payload>> = []
 )
-
-
-
-
-
-
-
-
-
-
-

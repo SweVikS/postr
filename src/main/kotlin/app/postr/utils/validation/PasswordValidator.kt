@@ -1,6 +1,5 @@
 package app.postr.utils.validation
 
-import app.postr.dtos.UserDTO
 import org.passay.*
 import java.util.*
 import javax.validation.Constraint

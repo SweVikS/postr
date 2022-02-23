@@ -4,7 +4,7 @@ import app.postr.utils.validation.*
 import javax.validation.constraints.*
 
 @PasswordMatch
-class UserDTO {
+class SignupDTO {
 
     @UniqueUsername
     @NotNull

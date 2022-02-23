@@ -1,13 +1,10 @@
 package app.postr.controllers
 
-import app.postr.dtos.UserDTO
 import app.postr.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.context.request.WebRequest
 
 
 /**
@@ -25,7 +22,12 @@ class AuthenticationController(
      * HTML page <title> in Thymeleaf fragment head.html. Returns signin.html to client.
      */
     @GetMapping("signin")
-    fun SigninGet(titleModel: Model): String {
+    fun SigninGet(
+        titleModel: Model,
+        successModel: Model
+    ): String {
+        var successfulRegistration = false
+        successModel.addAttribute("successfulRegistration", successfulRegistration)
         titleModel.addAttribute("pagetitle", "Postr - Sign in")
         return "signin"
     }
@@ -39,12 +41,6 @@ class AuthenticationController(
         titleModel.addAttribute("pagetitle", "Postr - Sign in failure")
         return "signin-failure"
     }
-
-    /**
-     * Mapped to GET Request "signup". Has titleModel Model as in parameter for dynamically setting
-     * HTML page <title> in Thymeleaf fragment head.html. Returns signup.html to client.
-     */
-
 }
 
 

@@ -63,10 +63,6 @@ public class WebSecurityConfig(@Autowired val userRepo: UserRepo) : WebSecurityC
     /**
      * Configuration Bean used by configure function to access the UserRepo.
      */
-//    @Bean
-//    override fun userDetailsService(): UserDetailsService? {
-//        return MyUserDetailsService(userRepo)
-//    }
 
     @Autowired
     val userDetailsService: MyUserDetailsService = MyUserDetailsService(userRepo)
@@ -75,13 +71,6 @@ public class WebSecurityConfig(@Autowired val userRepo: UserRepo) : WebSecurityC
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(userDetailsService)
     }
-
-//    @Bean
-//    @Throws(java.lang.Exception::class)
-//    override fun authenticationManagerBean(): AuthenticationManager? {
-//        return super.authenticationManagerBean()
-//    }
-
 
     /**
      * Configuration Bean used by configure function to handle password encryption.
@@ -130,53 +119,3 @@ class MyUserDetailsService(
         return authorities
     }
 }
-
-//class MyUserDetailsService(val userRepository: UserRepo) : UserDetailsService {
-//
-//    /**
-//     * Sends parameter username to UserRepo.findByUsername function,
-//     * retrieves a User object and returns it
-//     * encapsulated in a MyUserDetails object (the principal).
-//     */
-//    override fun loadUserByUsername(username: String): UserDetails {
-//        val user = userRepository.findByUsername(username)
-//            ?: throw UsernameNotFoundException(username)
-//        return MyUserDetails(user)
-//    }
-//}
-
-/**
- * Contains function override of functions in UserDetails interface.
- * This object is the Principal instance of the
- * currently logged in user, encapsulated in an Authentication object.
- */
-//class MyUserDetails(val user: MyUser) : UserDetails {
-//
-//    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-//        return HashSet()
-//    }
-//
-//    override fun getPassword(): String {
-//        return user.password!!
-//    }
-//
-//    override fun getUsername(): String {
-//        return user.username!!
-//    }
-//
-//    override fun isAccountNonExpired(): Boolean {
-//        return true
-//    }
-//
-//    override fun isAccountNonLocked(): Boolean {
-//        return true
-//    }
-//
-//    override fun isCredentialsNonExpired(): Boolean {
-//        return true
-//    }
-//
-//    override fun isEnabled(): Boolean {
-//        return true
-//    }
-//}

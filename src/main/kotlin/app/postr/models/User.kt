@@ -13,7 +13,6 @@ class MyUser(
     password: String,
     email: String?,
     profile: Profile,
-//    roles: MutableCollection<Role>?
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

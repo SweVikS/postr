@@ -10,15 +10,19 @@
 
 <div layout:fragment="pageContent">
     <div th:replace="fragments/loginform :: loginform"></div>
-    <th:block th:if="${successfulRegistration}">
-        <div th:replace="fragments/modals/signupmodal :: signupmodal">modal</div>
-        <script type="text/javascript">
-$(window).on('load', function() {
-        $('#signupmodal').modal('show');
-    });
-    $('#signupmodal').close()
-</script>
-    </th:block>
+
 </div>
 </div>
 </html>
+
+
+<!--    $(function(){-->
+<!--$('#signupmodal').modal({-->
+<!--   show:true,-->
+<!--   backdrop:'static'-->
+<!--});-->
+<!--    $('signupmodal').on('show.bs.modal', function () {-->
+<!--        $.get("/modals/signupmodal", function (data) {-->
+<!--            $('#signupmodal').find('.modal-body').html(data);-->
+<!--        })-->
+<!--    });-->

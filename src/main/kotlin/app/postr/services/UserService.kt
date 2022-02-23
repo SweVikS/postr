@@ -1,11 +1,10 @@
 package app.postr.services
 
-import app.postr.dtos.UserDTO
+import app.postr.dtos.SignupDTO
 import app.postr.models.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import java.util.*
 import javax.transaction.Transactional
 
 /**
@@ -26,23 +25,16 @@ class UserService(
      */
     private val bCryptEncoder = BCryptPasswordEncoder()
 
-    fun registerNewUser(userDTO: UserDTO): MyUser? {
-        val encryptedPassword = bCryptEncoder.encode(userDTO.password)
+    fun registerNewUser(signupDTO: SignupDTO): MyUser? {
+        val encryptedPassword = bCryptEncoder.encode(signupDTO.password)
 
-//        if (emailExist(userDTO.email)) {
-//            throw UserAlreadyExistException(
-//                "There is an account with that email address: "
-//                        + userDTO.email
-//            );
-//        }
-
-        var newProfile = Profile(description = "")
+        var newProfile = Profile(description = "", email = signupDTO.email)
         var role: Role? = roleRepo.findByName("ROLE_USER")
 
         var user = MyUser(
-            username = userDTO.username,
+            username = signupDTO.username,
             password = encryptedPassword,
-            email = userDTO.email,
+            email = signupDTO.email,
             profile = newProfile
         )
         if (role != null) {
@@ -53,32 +45,6 @@ class UserService(
         return userRepo.save(user)
     }
 
-
-//    class UserAlreadyExistException : RuntimeException {
-//        constructor() : super() {}
-//        constructor(message: String?, cause: Throwable?) : super(message, cause) {}
-//        constructor(message: String?) : super(message) {}
-//        constructor(cause: Throwable?) : super(cause) {}
-//
-//        companion object {
-//            private const val serialVersionUID = 5861310537366287163L
-//        }
-//    }
-
-//    private fun emailExist(email: String): Boolean {
-//        return userRepo.findByEmail(email) != null
-//    }
-//    fun emailExist(email: String): Boolean {
-//        var emailExist: Boolean = false
-//        try {
-//            userRepo.findByEmail(email)
-//
-//        } catch (e: EmptyResultDataAccessException) {
-//            emailExist == true
-//        }
-//
-//        return emailExist
-//    }
 
     /**
      * Retrieves User object from database with UserRepo.
@@ -97,10 +63,5 @@ class UserService(
 }
 
 //interface IUserService {
-//    fun registerNewUser(userDTO: UserDTO?): MyUser?
+//    fun registerNewUser(userDTO: SignupDTO?): MyUser?
 //}
-
-/**
- *Data Transfer Object used for sending registration credentials to UserService
- */
-class SignupDTO(val username: String, val password: String)

@@ -1,7 +1,7 @@
 package app.postr.utils.validation
 
 
-import app.postr.dtos.UserDTO
+import app.postr.dtos.SignupDTO
 import javax.validation.Constraint
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
@@ -14,7 +14,7 @@ class PasswordMatchValidator : ConstraintValidator<PasswordMatch, Object> {
     override fun initialize(constraintAnnotation: PasswordMatch) {}
 
     override fun isValid(ob: Object, context: ConstraintValidatorContext): Boolean {
-        var user: UserDTO = ob as UserDTO
+        var user: SignupDTO = ob as SignupDTO
         return user.password.equals(user.matchingPassword)
     }
 }

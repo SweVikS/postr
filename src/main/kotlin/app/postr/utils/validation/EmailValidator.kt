@@ -12,28 +12,18 @@ import kotlin.reflect.KClass
 
 class EmailValidator : ConstraintValidator<ValidEmail, String> {
 
-    lateinit var pattern: Pattern
-    lateinit var matcher: Matcher
-
     val EMAIL_PATTERN: String =
         "^[_A-Za-z0-9-+]+" + "(.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$"
+
+    var pattern = Pattern.compile(this.EMAIL_PATTERN)
+
 
     override fun initialize(constraintAnnotation: ValidEmail) {}
 
     override fun isValid(email: String, context: ConstraintValidatorContext): Boolean {
-        return validateEmail(email)
+        return pattern.matcher(email).matches()
     }
-
-    fun validateEmail(email: String): Boolean {
-
-        pattern = Pattern.compile(EMAIL_PATTERN)
-        matcher = pattern.matcher(email)
-
-        return matcher.matches()
-    }
-
 }
-
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)

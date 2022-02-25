@@ -10,27 +10,25 @@ import kotlin.reflect.KClass
 
 class ValidPasswordValidator : ConstraintValidator<ValidPassword, String> {
 
+    val passayValidator: PasswordValidator = PasswordValidator(
+        LengthRule(8, 30),
+        CharacterRule(EnglishCharacterData.UpperCase, 1),
+        CharacterRule(EnglishCharacterData.LowerCase, 1),
+        CharacterRule(EnglishCharacterData.Digit, 1),
+        CharacterRule(EnglishCharacterData.Special, 1),
+        WhitespaceRule()
+    )
+
     override fun initialize(constraintAnnotation: ValidPassword) {}
 
     override fun isValid(password: String, context: ConstraintValidatorContext): Boolean {
 
-        var props : Properties = Properties()
-
-        var passayValidator: PasswordValidator = PasswordValidator(
-            LengthRule(8, 30),
-            CharacterRule(EnglishCharacterData.UpperCase, 1),
-            CharacterRule(EnglishCharacterData.LowerCase, 1),
-            CharacterRule(EnglishCharacterData.Digit, 1),
-            CharacterRule(EnglishCharacterData.Special, 1),
-            WhitespaceRule()
-        )
-
-        var result: RuleResult = passayValidator.validate(PasswordData(password))
+        val result: RuleResult = passayValidator.validate(PasswordData(password))
         if (result.isValid) {
             return true
         }
 
-        var msg = passayValidator.getMessages(result).joinToString().replace(".","")
+        val msg = passayValidator.getMessages(result).joinToString().replace(".", "")
 
         context.disableDefaultConstraintViolation()
         context.buildConstraintViolationWithTemplate(msg)
@@ -38,7 +36,6 @@ class ValidPasswordValidator : ConstraintValidator<ValidPassword, String> {
         return false
     }
 }
-
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)

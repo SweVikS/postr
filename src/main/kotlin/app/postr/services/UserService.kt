@@ -28,10 +28,10 @@ class UserService(
     fun registerNewUser(signupDTO: SignupDTO): MyUser? {
         val encryptedPassword = bCryptEncoder.encode(signupDTO.password)
 
-        var newProfile = Profile(description = "", email = signupDTO.email)
-        var role: Role? = roleRepo.findByName("ROLE_USER")
+        val newProfile = Profile(description = "", email = signupDTO.email)
+        val role: Role? = roleRepo.findByName("ROLE_USER")
 
-        var user = MyUser(
+        val user = MyUser(
             username = signupDTO.username,
             password = encryptedPassword,
             email = signupDTO.email,
@@ -49,7 +49,7 @@ class UserService(
     /**
      * Retrieves User object from database with UserRepo.
      */
-    fun getUserByName(username: String): MyUser {
+    fun getUserByName(username: String): MyUser? {
         return userRepo.findByUsername(username)
     }
 
@@ -62,6 +62,3 @@ class UserService(
 
 }
 
-//interface IUserService {
-//    fun registerNewUser(userDTO: SignupDTO?): MyUser?
-//}

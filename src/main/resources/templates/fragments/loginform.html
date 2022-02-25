@@ -25,6 +25,10 @@
                                 <input type="password" name="password" class="form-control form-control-lg"/>
                                 <label class="form-label">Password</label>
                             </div>
+                            <th:block th:if="${param.error !=null}">
+                                <p class="error">
+                                Something went wrong. Either Username or Password was incorrect.</p></th:block>
+
                             <button class="btn btn-secondary btn-lg btn-block mb-3" type="submit">Sign in</button>
                         </form>
 

@@ -44,7 +44,7 @@ class MyUser(
  * Interface for implementing Spring Data CrudRepository functions on MyUser objects. Repository is link between backend and database.
  */
 interface UserRepo : CrudRepository<MyUser, Long> {
-    fun findByUsername(username: String): MyUser
-    fun findByEmail(email: String?): MyUser
+    fun findByUsername(username: String): MyUser?
+    fun findByEmail(email: String?): MyUser?
     override fun findAll(): MutableIterable<MyUser>
 }

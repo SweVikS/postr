@@ -9,16 +9,14 @@ import javax.validation.Payload
 import kotlin.reflect.KClass
 
 
-class PasswordMatchValidator : ConstraintValidator<PasswordMatch, Object> {
+class PasswordMatchValidator : ConstraintValidator<PasswordMatch, SignupDTO> {
 
     override fun initialize(constraintAnnotation: PasswordMatch) {}
 
-    override fun isValid(ob: Object, context: ConstraintValidatorContext): Boolean {
-        var user: SignupDTO = ob as SignupDTO
-        return user.password.equals(user.matchingPassword)
+    override fun isValid(signupDTO: SignupDTO, context: ConstraintValidatorContext): Boolean {
+        return signupDTO.password == signupDTO.matchingPassword
     }
 }
-
 
 @Target(AnnotationTarget.TYPE, AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

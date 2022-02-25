@@ -28,20 +28,16 @@ class SetupRolesAndPrivileges(
         val readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE")
         val writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE")
 
-        var userPrivileges = arrayListOf<Privilege>(readPrivilege,writePrivilege)
+        val userPrivileges = arrayListOf<Privilege>(readPrivilege, writePrivilege)
 
-            createRoleIfNotFound("ROLE_USER",userPrivileges)
+        createRoleIfNotFound("ROLE_USER", userPrivileges)
         alreadySetup = true
     }
 
     @Transactional
     fun createPrivilegeIfNotFound(privName: String?): Privilege {
-        var newPrivilege: Privilege? = privilegeRepo.findByName(privName)
-        if (newPrivilege == null) {
-            newPrivilege = Privilege(privName)
-            privilegeRepo.save(newPrivilege)
-        }
-        return newPrivilege
+        return privilegeRepo.findByName(privName) ?: privilegeRepo.save(Privilege(privName))
+
     }
 
     @Transactional
@@ -49,13 +45,7 @@ class SetupRolesAndPrivileges(
         roleName: String?,
         privileges: MutableCollection<Privilege>?
     ): Role? {
-        var newRole: Role? = roleRepo.findByName(roleName)
-        if (newRole == null) {
-            newRole = Role(roleName, privileges)
-            newRole
-            roleRepo.save(newRole)
-        }
-        return newRole
+        return roleRepo.findByName(roleName) ?: roleRepo.save(Role(roleName, privileges))
     }
 
 }

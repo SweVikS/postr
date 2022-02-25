@@ -4,6 +4,7 @@ import app.postr.models.Post
 import app.postr.models.PostRepo
 import app.postr.models.UserRepo
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.stereotype.Service
 
 /**
@@ -16,6 +17,7 @@ class PostService(
     val userService: UserService,
     @Autowired
     val postRepo: PostRepo,
+    @Autowired
     val userRepo: UserRepo
 ) {
     /**
@@ -23,8 +25,9 @@ class PostService(
      */
     fun savePost(postDTO: postDTO, username: String) {
 
-        val user = userService.getUserByName(username)
+        val user = userService.getUserByName(username) ?: throw NotFoundException()
         val newPost = Post(heading = postDTO.heading, body = postDTO.body, user = user)
+
         user.posts?.add(newPost)
 
         postRepo.save(newPost)

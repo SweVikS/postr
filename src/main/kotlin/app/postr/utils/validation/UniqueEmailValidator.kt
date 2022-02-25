@@ -18,16 +18,9 @@ class UniqueEmailValidator(@Autowired val userRepo: UserRepo) : ConstraintValida
 
     override fun isValid(email: String?, context: ConstraintValidatorContext?): Boolean {
 
-        var isUnique: Boolean = false
-        try {
-            userRepo.findByEmail(email)
-        } catch (e: EmptyResultDataAccessException) {
-            isUnique = true
-        }
-        return isUnique
+        return userRepo.findByEmail(email) == null
     }
 }
-
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)

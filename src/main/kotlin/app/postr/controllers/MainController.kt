@@ -23,9 +23,9 @@ class MainController(
      * Mapped to GET Request "home". Has titleModel Model as in parameter for dynamically setting
      * HTML page <title> in Thymeleaf fragment head.html. Returns home.html to client.
      */
-    @GetMapping("home")
-    fun Home(titleModel: Model): String {
-        titleModel.addAttribute("pagetitle", "Postr - Home")
+    @GetMapping("/home")
+    fun Home(model: Model): String {
+        model.addAttribute("pagetitle", "Postr - Home")
         return "home"
     }
 
@@ -33,9 +33,9 @@ class MainController(
      * Fallback redirect in case of no path. Has titleModel Model as in parameter for dynamically setting
      * HTML page <title> in Thymeleaf fragment head.html. Returns home.html to client.
      */
-    @GetMapping("")
-    fun FallbackRedirect(titleModel: Model): String {
-        titleModel.addAttribute("pagetitle", "Postr - Home")
+    @GetMapping("/")
+    fun FallbackRedirect(model: Model): String {
+        model.addAttribute("pagetitle", "Postr - Home")
         return "home"
     }
 
@@ -44,10 +44,10 @@ class MainController(
      * HTML page <title> in Thymeleaf fragment head.html. Has postModel Model for sending all Posts to
      * HTML document. Returns timeline.html to client.
      */
-    @GetMapping("timeline")
-    fun Timeline(postModel: Model, titleModel: Model): String {
-        postModel.addAttribute("postList", postService.findAll())
-        titleModel.addAttribute("pagetitle", "Postr - Timeline")
+    @GetMapping("/timeline")
+    fun Timeline(model: Model): String {
+        model.addAttribute("postList", postService.findAll())
+        model.addAttribute("pagetitle", "Postr - Timeline")
         return "timeline"
     }
 
@@ -57,9 +57,9 @@ class MainController(
      * Returns userlistpage.html to client.
      */
     @GetMapping("userlistpage")
-    fun UserList(userListModel: Model, titleModel: Model): String {
-        userListModel.addAttribute("userList", userService.getAllUsers())
-        titleModel.addAttribute("pagetitle", "Postr - User List")
+    fun UserList(model: Model): String {
+        model.addAttribute("userList", userService.getAllUsers())
+        model.addAttribute("pagetitle", "Postr - User List")
         return "userlistpage"
     }
 
@@ -71,10 +71,10 @@ class MainController(
      * Returns editprofile.html to client.
      */
     @GetMapping("editprofile")
-    fun ProfilePageEdit(profileModel: Model, titleModel: Model, principal: Principal): String {
+    fun ProfilePageEdit(model: Model, principal: Principal): String {
         val user = userService.getUserByName(principal.name)
-        profileModel.addAttribute("profile", user.profile)
-        titleModel.addAttribute("pagetitle", "Postr - Edit Profile")
+        model.addAttribute("profile", user?.profile)
+        model.addAttribute("pagetitle", "Postr - Edit Profile")
         return "editprofile"
     }
 
@@ -88,18 +88,29 @@ class MainController(
      */
     @GetMapping("profilepage/{username}")
     fun ProfilePage(
-        profileModel: Model,
-        titleModel: Model,
-        signedInUserModel: Model,
+       model:Model,
         @PathVariable username: String,
         principal: Principal
     ): String {
         val user = userService.getUserByName(username)
-        profileModel.addAttribute("profile", user.profile)
-        titleModel.addAttribute("pagetitle", "Postr - Profile")
+        model.addAttribute("profile", user?.profile)
+        model.addAttribute("pagetitle", "Postr - Profile")
 
         val sameUser = username == principal.name
-        signedInUserModel.addAttribute("signedInUser", sameUser)
+        model.addAttribute("signedInUser", sameUser)
         return "profilepage"
+    }
+
+    /**
+     * Mapped to GET Request "signin". Has titleModel Model as in parameter for dynamically setting
+     * HTML page <title> in Thymeleaf fragment head.html. Returns signin.html to client.
+     */
+    @GetMapping("signin")
+    fun SigninGet(
+        model: Model
+    ): String {
+        model.addAttribute("successfulRegistration", false)
+        model.addAttribute("pagetitle", "Postr - Sign in")
+        return "signin"
     }
 }

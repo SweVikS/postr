@@ -20,10 +20,10 @@ class RegistrationController(
 ) {
 
     @GetMapping("signup")
-    fun signupGet(request: WebRequest?, userDTOModel: Model, titleModel: Model): String? {
+    fun signupGet( model: Model): String? {
         val signupDTO = SignupDTO()
-        userDTOModel.addAttribute("user", signupDTO)
-        titleModel.addAttribute("pagetitle", "Postr - Sign up")
+        model.addAttribute("user", signupDTO)
+        model.addAttribute("pagetitle", "Postr - Sign up")
         return "signup"
     }
 
@@ -34,21 +34,19 @@ class RegistrationController(
         @ModelAttribute("user")
         signupDTO: SignupDTO,
         result: BindingResult,
-        msgModel: Model,
-        successModel: Model
+        model : Model
     ): String {
         if (result.hasErrors()) {
             return "signup";
         }
 
-        var user: MyUser? = userService.registerNewUser(signupDTO)
+        val user: MyUser? = userService.registerNewUser(signupDTO)
 
         if(user !=null){
-            msgModel.addAttribute("successmsg",
+            model.addAttribute("successmsg",
                 "A new account with username ${user.username} and email ${user.email} have been created. \n" +
                         "You may now sign in.")
-            var successfulRegistration= true
-            successModel.addAttribute("successfulRegistration", successfulRegistration)
+            model.addAttribute("successfulRegistration", true)
         }
         return "signin"
     }

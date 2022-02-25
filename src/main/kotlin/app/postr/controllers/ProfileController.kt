@@ -37,19 +37,17 @@ class ProfileController(
     fun profileEdit(
         @ModelAttribute
         profileDTO: profileDTO,
-        profileModel: Model,
-        titleModel: Model,
-        signedInUserModel: Model,
+        model: Model,
         principal: Principal
     ): String {
         profileService.saveProfile(profileDTO,principal.name)
 
         val user = userService.getUserByName(principal.name)
-        profileModel.addAttribute("profile", user.profile)
-        titleModel.addAttribute("pagetitle", "Postr - Profile")
+        model.addAttribute("profile", user?.profile)
+        model.addAttribute("pagetitle", "Postr - Profile")
 
-        val sameUser = user.username == principal.name
-        signedInUserModel.addAttribute("signedInUser", sameUser)
+        val sameUser = user?.username == principal.name
+        model.addAttribute("signedInUser", sameUser)
         return "profilepage"
     }
 }

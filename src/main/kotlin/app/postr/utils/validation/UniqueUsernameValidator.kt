@@ -15,17 +15,9 @@ class UniqueUsernameValidator(@Autowired val userRepo: UserRepo) : ConstraintVal
 
     override fun isValid(username: String, context: ConstraintValidatorContext?): Boolean {
 
-        var isUnique: Boolean = false
-        try {
-            userRepo.findByUsername(username)
-        } catch (e: EmptyResultDataAccessException) {
-            isUnique = true
-        }
-        return isUnique
+        return userRepo.findByUsername(username) == null
     }
 }
-
-
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)

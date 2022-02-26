@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
 /**
- * Handles User object creation and saves the entity in database. UserRepo is autowired into the class
+ * Handles User object creation and saves the entity in database. UserRepo and RoleRepo is autowired into the class
  * for persisting data in database.
  */
 @Service

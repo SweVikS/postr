@@ -5,7 +5,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
 
-<head th:include="/fragments/head :: head">
+<head th:include="fragments/head :: head">
 </head>
 
 <div layout:fragment="pageContent">
@@ -13,71 +13,45 @@
     <form action="#" th:action="@{/profilepage/edit}" th:object="${profile}" method="post">
         <div class="input-group mb-3 w-25">
 
-        <div class="mb-3">
-            <label for="bio" class="form-label">Bio</label>
-            <input type="text"
-                   th:value="${profile.description}"
-                   name="description"
-                   class="form-control"
-                   id="bio" aria-describedby="bioHelp">
-            <div id="bioHelp" class="form-text">Max 255 characters.</div>
-        </div>
+            <div class="mb-3">
+                <label for="bio" class="form-label">Bio</label>
+                <input type="text"
+                       th:value="${profile.description}"
+                       name="description"
+                       class="form-control"
+                       id="bio" aria-describedby="bioHelp">
+                <div id="bioHelp" class="form-text">Max 255 characters.</div>
+            </div>
 
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="text"
-                   th:value="${profile.email}"
-                   name="email"
-                   class="form-control"
-                   id="email">
-        </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text"
+                       th:value="${profile.email}"
+                       name="email"
+                       class="form-control"
+                       id="email">
+            </div>
 
-        <div class="mb-3">
-            <label for="phoneNr" class="form-label">Phone Number</label>
-            <input type="text"
-                   th:value="${profile.phoneNr}"
-                   name="phoneNr"
-                   class="form-control"
-                   id="phoneNr">
-        </div>
+            <div class="mb-3">
+                <label for="phoneNr" class="form-label">Phone Number</label>
+                <input type="text"
+                       th:value="${profile.phoneNr}"
+                       name="phoneNr"
+                       class="form-control"
+                       id="phoneNr">
+            </div>
 
-        <div class="mb-3">
-            <label for="companyRole" class="form-label">Company Role</label>
-            <input type="text"
-                   th:value="${profile.companyRole}"
-                   name="companyRole"
-                   class="form-control"
-                   id="companyRole">
-        </div>
+            <div class="mb-3">
+                <label for="companyRole" class="form-label">Company Role</label>
+                <input type="text"
+                       th:value="${profile.companyRole}"
+                       name="companyRole"
+                       class="form-control"
+                       id="companyRole">
+            </div>
 
         </div>
         <button type="submit" class="btn btn-secondary">Save</button>
     </form>
-
-
-
-
-
-<!--    <form action="#" th:action="@{/profilepage/edit}" th:object="${profile}" method="post">-->
-<!--        -->
-<!--        <p><input type="submit" value="Save"/></p>-->
-<!--    </form>-->
-
 </div>
-<!--<h3>Edit Description</h3>-->
-<!--<input type="text" th:value="${profile.description}" name="description">-->
-<!--&lt;!&ndash;        <label for="exampleFormControlTextarea1" class="form-label" type="text"></label>&ndash;&gt;-->
-<!--&lt;!&ndash;        <textarea class="form-control"&ndash;&gt;-->
-<!--&lt;!&ndash;                  id="exampleFormControlTextarea1"&ndash;&gt;-->
-<!--&lt;!&ndash;                  rows="3"&ndash;&gt;-->
-<!--&lt;!&ndash;                  type="text"&ndash;&gt;-->
-<!--&lt;!&ndash;                  th:value="${profile.description}"&ndash;&gt;-->
-<!--&lt;!&ndash;                  name="description">&ndash;&gt;-->
-<!--&lt;!&ndash;        </textarea>&ndash;&gt;-->
-<!--<h3>Edit Email</h3>-->
-<!--<input type="email" th:value="${profile.email}" name="email">-->
-<!--<h3>Edit Phone Number</h3>-->
-<!--<input type="text" th:value="${profile.phoneNr}" name="phoneNr">-->
-<!--<h3>Edit Company Role</h3>-->
-<!--<input type="text" th:value="${profile.companyRole}" name="companyRole">-->
 </html>

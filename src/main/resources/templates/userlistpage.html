@@ -5,7 +5,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
 
-<head th:include="/fragments/head :: head">
+<head th:include="fragments/head :: head">
 </head>
 <div layout:fragment="pageContent">
     <div th:replace="fragments/userlist :: users(${userList})"></div>

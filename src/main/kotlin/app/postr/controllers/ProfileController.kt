@@ -1,17 +1,13 @@
 package app.postr.controllers
 
-import app.postr.models.ProfileRepo
-import app.postr.models.UserRepo
 import app.postr.services.ProfileService
 import app.postr.services.UserService
-import app.postr.services.profileDTO
+import app.postr.services.ProfileDTO
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestParam
 import java.security.Principal
 
 /**
@@ -29,14 +25,14 @@ class ProfileController(
      * HTML page <title> in Thymeleaf fragment head.html. Has profileModel Model for sending the logged in User's
      * Profile to HTML document. Has Principal for retrieving username of logged in User. Boolean sameUser is used to determine if logged in User
      * is same as @PathVariable username. If not, editing profile is disabled in HTML document. When triggered,
-     * th:value description, email, phoneNr and companyRole in HTML document are sent to profileDTO for use in ProfileService function.
+     * th:value description, email, phoneNr and companyRole in HTML document are sent to ProfileDTO for use in ProfileService function.
      * profileService.saveProfile function is called to persist updated Profile in database.
      * Returns profilepage.html to client.
      */
     @PostMapping("/profilepage/edit")
     fun profileEdit(
         @ModelAttribute
-        profileDTO: profileDTO,
+        profileDTO: ProfileDTO,
         model: Model,
         principal: Principal
     ): String {

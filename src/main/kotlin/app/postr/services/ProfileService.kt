@@ -17,10 +17,10 @@ class ProfileService(
 ) {
 
     /**
-     * Persists an updated Profile object in database. Recieves profileDTO and username from Controller function.
-     * Retrieves logged in User from UserService and sets fields of profileDTO to the logged in User's Profile fields.
+     * Persists an updated Profile object in database. Recieves ProfileDTO and username from Controller function.
+     * Retrieves logged in User from UserService and sets fields of ProfileDTO to the logged in User's Profile fields.
      */
-    fun saveProfile(profileDTO: profileDTO, username: String) {
+    fun saveProfile(profileDTO: ProfileDTO, username: String) {
 
         val user = userService.getUserByName(username)
 
@@ -36,4 +36,4 @@ class ProfileService(
 /**
  * Data Transfer Object for encapsulating Profile object data.
  */
-class profileDTO(var description: String?, var email: String?, val phoneNr: String?, val companyRole: String?)
+class ProfileDTO(var description: String?, var email: String?, val phoneNr: String?, val companyRole: String?)

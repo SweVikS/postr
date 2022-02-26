@@ -7,7 +7,6 @@
 
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-<!--    HTML Code for Navigation Bar-->
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/home}">
             <img src="../img/6f4a6371837d4cc59fd9292ce3e7c0be.png" alt="logo" title="Postr brand" width="40"
@@ -55,7 +54,6 @@
                     class="nav-item px-1">
                     <a class="nav-link" th:href="@{/profilepage/{username}(username=${#httpServletRequest.remoteUser})}">Profile</a>
                 </li>
-<!--                /{username}(username=${#httpServletRequest.remoteUser})-->
                 <li th:if="${#httpServletRequest.remoteUser}" class="nav-item px-1">
                     <form th:action="@{/logout}" method="post">
                         <input class="nav-link" type="submit" value="Sign Out"/>

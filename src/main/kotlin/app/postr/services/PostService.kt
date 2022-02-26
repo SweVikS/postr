@@ -21,9 +21,9 @@ class PostService(
     val userRepo: UserRepo
 ) {
     /**
-     * Persists a new Post object in database. Recieves postDTO and username from Controller function.
+     * Persists a new Post object in database. Recieves PostDTO and username from Controller function.
      */
-    fun savePost(postDTO: postDTO, username: String) {
+    fun savePost(postDTO: PostDTO, username: String) {
 
         val user = userService.getUserByName(username) ?: throw NotFoundException()
         val newPost = Post(heading = postDTO.heading, body = postDTO.body, user = user)
@@ -43,4 +43,4 @@ class PostService(
 /**
  * Data Transfer Object for encapsulating Post object data.
  */
-class postDTO(var heading: String, var body: String)
+class PostDTO(var heading: String, var body: String)

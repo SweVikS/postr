@@ -3,7 +3,9 @@ package app.postr.models
 import org.springframework.data.repository.CrudRepository
 import javax.persistence.*
 
-
+/**
+ * Entity Model Class for defining and creating Post table in PostgreSQL database.
+ */
 @Entity
 class Role(roleName: String?, privileges: MutableCollection<Privilege>?) {
     @Id
@@ -22,6 +24,10 @@ class Role(roleName: String?, privileges: MutableCollection<Privilege>?) {
     )
     private var privileges: MutableCollection<Privilege?>? = null
 }
+
+/**
+ * Interface for implementing Spring Data CrudRepository functions on Role objects. Repository is link between backend and database.
+ */
 interface RoleRepo : CrudRepository<Role, Long> {
     fun findByName(name: String?) : Role?
 }

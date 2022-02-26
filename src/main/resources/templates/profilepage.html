@@ -5,7 +5,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
 
-<head th:include="/fragments/head :: head">
+<head th:include="fragments/head :: head">
 </head>
 
 <div layout:fragment="pageContent">
@@ -18,8 +18,7 @@
     <p type="text" th:text="${profile.phoneNr}"></p><br>
     <h2>Company Role</h2>
     <p type="text" th:text="${profile.companyRole}"></p><br>
-<br>
+    <br>
     <a class="btn btn-secondary btn-lg btn-block" th:if="${signedInUser}" th:href="@{/editprofile}">Edit Profile</a>
 </div>
-<!--#httpServletRequest.remoteUser}==${requestedUser}-->
 </html>

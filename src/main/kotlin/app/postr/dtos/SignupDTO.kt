@@ -3,6 +3,10 @@ package app.postr.dtos
 import app.postr.utils.validation.*
 import javax.validation.constraints.*
 
+/**
+ * Data Transfer Object for encapsulating POST request data from client upon registration to be used in UserService.
+ * Annotations are used for validation before DTO is sent to UserService.
+ */
 @PasswordMatch
 class SignupDTO {
 
@@ -27,8 +31,6 @@ class SignupDTO {
 
     @NotNull
     var matchingPassword: String = ""
-
-
 }
 
 

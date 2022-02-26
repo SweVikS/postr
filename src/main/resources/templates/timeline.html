@@ -4,11 +4,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{main}">
 
-<head th:include="/fragments/head :: head">
+<head th:include="fragments/head :: head">
 </head>
 
 <div layout:fragment="pageContent">
-
     <h1>Timeline Page</h1>
     <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
     <br>
@@ -16,11 +15,9 @@
     <form action="#" th:action="@{/timeline/post}" th:object="${post}" method="post">
         <input type="text" field="*{heading}" name="heading">
         <input type="text" field="*{body}" name="body">
-        <p><input type="submit" value="Save" /></p>
+        <p><input type="submit" value="Save"/></p>
     </form>
     <br><br>
-
-
     <div th:replace="fragments/post :: posts(${postList})"></div>
 </div>
 

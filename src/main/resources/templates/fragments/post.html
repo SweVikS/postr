@@ -3,7 +3,8 @@
         <h4 th:text="${text.heading}"></h4>
         <p th:text="${text.body}"></p><br>
 
-        <p><i>Creator:</i><a class="nav-link" th:href="@{profilepage/{username}(username=${text.user.username})}"><span th:text="${text.user.username}"></span></a></p>
+        <p><i>Creator:</i><a class="nav-link" th:href="@{profilepage/{username}(username=${text.user.username})}"><span
+                th:text="${text.user.username}"></span></a></p>
 
     </div>
 </div>

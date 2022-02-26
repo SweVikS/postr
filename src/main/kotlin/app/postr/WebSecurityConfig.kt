@@ -58,6 +58,7 @@ public class WebSecurityConfig(
                 "/css/**",
                 "/js/**",
                 "/img/**",
+                "/h2-console/**"
             ).permitAll()
             .anyRequest().authenticated()
             .and()

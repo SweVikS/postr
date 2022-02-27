@@ -21,7 +21,7 @@
 
                             <div class="form-outline mb-2">
                                 <label class="form-label">Email</label>
-                                <input th:type="email" th:field="*{email}" class="form-control form-control-lg"/>
+                                <input th:type="text" th:field="*{email}" class="form-control form-control-lg"/>
 
                                 <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}" />
                             </div>

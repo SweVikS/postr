@@ -30,7 +30,7 @@ class ProfileController(
      * Returns profilepage.html to client.
      */
     @PostMapping("/profilepage/edit")
-    fun profileEdit(
+    fun ProfileEdit(
         @ModelAttribute
         profileDTO: ProfileDTO,
         model: Model,

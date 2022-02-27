@@ -40,10 +40,10 @@ public class WebSecurityConfig(
                 "/home",
                 "/signup",
                 "/signin",
+                "/error",
                 "/css/**",
                 "/js/**",
-                "/img/**",
-                "/h2-console/**"
+                "/img/**"
             ).permitAll()
             .anyRequest().authenticated()
             .and()

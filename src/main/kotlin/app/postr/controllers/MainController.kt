@@ -88,8 +88,9 @@ class MainController(
      */
     @GetMapping("profilepage/{username}")
     fun ProfilePage(
-       model:Model,
-        @PathVariable username: String,
+        model: Model,
+        @PathVariable
+        username: String,
         principal: Principal
     ): String {
         val user = userService.getUserByName(username)
